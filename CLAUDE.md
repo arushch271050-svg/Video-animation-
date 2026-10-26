@@ -11,6 +11,7 @@
 | `skill-pack/` | สกิลแพ็ก "Story Series" ต้นฉบับจาก zip (3 สกิล + install.py) |
 | `series/story-demo/ep01/` | โปรเจกต์ Remotion ตอนเดโม (ไม่มี node_modules → `npm install` ก่อน) |
 | `series/story-demo/ep02/` | ตอน 2 "ถ้าตู้เสื้อผ้าเคาะตอบ" (ตู้เปิดบานขวาได้, เสื้อแจ็กเก็ตเทาที่ตะขอข้างประตู) |
+| `outputs/story-demo-ep02/` | ตอน 2 จบแล้ว: `ep02-v1.mp4`, `cover.png` (coverFrame 60) |
 | `outputs/story-demo-ep01/` | ผลงานจบแล้ว: `ep01-v1.mp4` (มีเสียงพากย์), `cover.png`, `takeA.mp3`, `words.json` |
 | `tools/chrome-proxy.sh` | wrapper ให้ Chrome ของ Remotion วิ่งผ่าน proxy ของ sandbox |
 
