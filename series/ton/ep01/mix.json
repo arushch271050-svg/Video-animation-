@@ -2,23 +2,15 @@
   "video": "out/raw.mp4",
   "voice": "vo/vo_aligned.wav",
   "out": "out/ep01-v1.mp4",
-  "bgm": {
-    "file": "vo/room.wav",
-    "volume": 0.5
-  },
+  "bgm": null,
   "clicks_volume": 0.9,
   "sfx": [
-    {
-      "file": "vo/sfx/knock3.wav",
-      "at": "L5+0.0",
-      "volume": 0.9,
-      "lowpass": 1600
-    },
-    {
-      "file": "vo/sfx/knock1.wav",
-      "at": "L8+1.6",
-      "volume": 1.0
-    }
+    {"file": "vo/sfx/school.wav", "at": 0, "volume": 0.35, "loop_to": "L4e+0.9"},
+    {"file": "vo/sfx/school.wav", "at": "L4e+0.9", "volume": 0.22, "lowpass": 1800, "loop_to": "L6e+0.7"},
+    {"file": "vo/sfx/sizzle.wav", "at": "L6e+0.7", "volume": 0.3, "loop_to": "L8e+0.9"},
+    {"file": "vo/sfx/street.wav", "at": "L6e+0.7", "volume": 0.35, "loop_to": "L8e+0.9"},
+    {"file": "vo/sfx/fan.wav", "at": "L8e+0.9", "volume": 0.28, "loop_to": "L12e+0.8"},
+    {"file": "vo/sfx/heartbeat.wav", "at": "L12e+0.9", "volume": 0.6}
   ],
-  "note": "at = seconds, or a line reference: L5 (line 5 start), L5+0.4, L5e (line 5 end), END (end card). The file STARTS there: subtract its first hit (tools.py onsets). bgm = the bed under the voice: vo/room.wav (sound.py room, default, no music) or vo/bgm.wav (sound.py bgm, optional music)."
+  "note": "beds per scene (school / back walkway / stall / bedroom); voice ducks every bed via sidechain in mix.py"
 }
