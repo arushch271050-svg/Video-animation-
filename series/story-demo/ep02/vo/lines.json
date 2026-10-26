@@ -1,0 +1,59 @@
+{
+ "take": "vo/takeA.mp3",
+ "lines": [
+  {
+   "th": "ถ้าตู้เสื้อผ้า เคาะตอบคุณ อย่าเปิดจากด้านหน้า",
+   "en": "If your wardrobe knocks back, don't open it from the front.",
+   "t": 0.19,
+   "end": 2.54
+  },
+  {
+   "th": "เพราะเสียงเคาะครั้งที่สี่ ดังมาจากข้างในตู้",
+   "en": "Because the fourth knock came from inside it.",
+   "t": 3.48,
+   "end": 5.69
+  },
+  {
+   "th": "ตีสองสิบสี่นาที ห้องหกศูนย์สี่",
+   "en": "2:14 a.m. Room 604.",
+   "t": 6.65,
+   "end": 8.66
+  },
+  {
+   "th": "ส้มฉุน ขู่ใส่ตู้ ขนพองทั้งตัว",
+   "en": "Somchun hisses at the wardrobe, fur on end.",
+   "t": 9.62,
+   "end": 11.51
+  },
+  {
+   "th": "บานตู้ เปิดเข้าหาคุณ ฝั่งบานพับ คือจุดบอด",
+   "en": "The door swings toward you. The hinge side is the blind spot.",
+   "t": 12.49,
+   "end": 14.93
+  },
+  {
+   "th": "คุณยืนฝั่งบานพับ แล้วใช้ไม้กวาด เกี่ยวบานตู้ให้เปิด",
+   "en": "You stand on the hinge side and hook it open with a broom.",
+   "t": 15.87,
+   "end": 18.94
+  },
+  {
+   "th": "ข้างในว่างเปล่า",
+   "en": "It's empty.",
+   "t": 19.89,
+   "end": 20.71
+  },
+  {
+   "th": "ทุกอย่างถูกหมด ยกเว้นเรื่องเดียว",
+   "en": "You got everything right, except one thing.",
+   "t": 21.71,
+   "end": 23.34
+  },
+  {
+   "th": "เสื้อแจ็กเก็ตสีเทา ที่แขวนข้างประตู หายไปแล้ว",
+   "en": "The grey jacket by the door is gone.",
+   "t": 24.3,
+   "end": 26.76
+  }
+ ]
+}

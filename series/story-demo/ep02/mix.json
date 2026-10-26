@@ -1,0 +1,29 @@
+{
+  "video": "out/raw.mp4",
+  "voice": "vo/vo_aligned.wav",
+  "out": "out/ep02-v1.mp4",
+  "bgm": {
+    "file": "vo/room.wav",
+    "volume": 0.5
+  },
+  "clicks_volume": 0.9,
+  "sfx": [
+    {
+      "file": "vo/sfx/knock1.wav",
+      "at": "L1e+0.3",
+      "volume": 0.9,
+      "lowpass": 1300
+    },
+    {
+      "file": "vo/sfx/creak.wav",
+      "at": "L6+0.4",
+      "volume": 0.8
+    },
+    {
+      "file": "vo/sfx/impact.wav",
+      "at": "L9+1.23",
+      "volume": 0.6
+    }
+  ],
+  "note": "at = seconds, or a line reference: L5 (line 5 start), L5+0.4, L5e (line 5 end), END (end card). The file STARTS there: subtract its first hit (tools.py onsets). bgm = the bed under the voice: vo/room.wav (sound.py room, default, no music) or vo/bgm.wav (sound.py bgm, optional music)."
+}

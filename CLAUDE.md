@@ -10,6 +10,7 @@
 |---|---|
 | `skill-pack/` | สกิลแพ็ก "Story Series" ต้นฉบับจาก zip (3 สกิล + install.py) |
 | `series/story-demo/ep01/` | โปรเจกต์ Remotion ตอนเดโม (ไม่มี node_modules → `npm install` ก่อน) |
+| `series/story-demo/ep02/` | ตอน 2 "ถ้าตู้เสื้อผ้าเคาะตอบ" (ตู้เปิดบานขวาได้, เสื้อแจ็กเก็ตเทาที่ตะขอข้างประตู) |
 | `outputs/story-demo-ep01/` | ผลงานจบแล้ว: `ep01-v1.mp4` (มีเสียงพากย์), `cover.png`, `takeA.mp3`, `words.json` |
 | `tools/chrome-proxy.sh` | wrapper ให้ Chrome ของ Remotion วิ่งผ่าน proxy ของ sandbox |
 
@@ -32,7 +33,7 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
    npx remotion render src/index.ts Film out/raw.mp4 --crf=20 --concurrency=4 --gl=swangle --browser-executable=/home/user/Video-animation-/tools/chrome-proxy.sh
    npx remotion still src/index.ts Cover out/cover.png --frame=600 --gl=swangle --browser-executable=/home/user/Video-animation-/tools/chrome-proxy.sh
    ```
-   (wrapper ฝัง proxy `http://127.0.0.1:46473` ถ้าพอร์ตเปลี่ยน ดู `$HTTPS_PROXY` แล้วแก้ในไฟล์) เรนเดอร์ 28 วิ ≈ 15 นาทีบน CPU
+   (wrapper อ่าน `$HTTPS_PROXY` ตอนรัน — พอร์ตเปลี่ยนได้หลังรีสตาร์ต ไม่ต้องแก้ไฟล์) เรนเดอร์ 28 วิ ≈ 15 นาทีบน CPU
 3. **เสียงพากย์:** `tts.py edge` ต่อเน็ตตรงไม่ผ่าน proxy → DNS error เรียก edge-tts เองแทน (ข้อความเดียวกัน):
    ```bash
    python3 $S/tts.py own        # แค่สร้าง vo/text.txt จาก script.md
@@ -48,3 +49,7 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
   threshold 0.03 ratio 4 attack 20ms release 300ms วัดได้ลด 4.6–6.2 dB ตอนพูด) ถ้าอยากลดแรงกว่านี้ต้องปรับ ratio/threshold
 - เคยพูดถึง "เสียงฝน" — ตอนนี้พื้นหลังเป็นเสียงห้อง (`sound.py room`) ยังไม่ได้ทำฝน ถามก่อนทำ
 - ยังไม่ได้เริ่มซีรีส์ของผู้ใช้เอง (ต้องเลือกลุค: ตัวละคร สี ฟอนต์ แสง เสียง ก่อนทำตอน 1)
+
+## QA stills (stills.mjs ของสกิลใช้ angle → พังในนี้)
+สร้างสำเนาที่ใช้ swangle + wrapper: `sed` จาก stills.mjs ไป `out/qa-stills.mjs` (ดูประวัติ commit ep02) แล้ว
+`node out/qa-stills.mjs $(python3 $S/tools.py mids) && python3 $S/tools.py contact`
