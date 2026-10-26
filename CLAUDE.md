@@ -13,6 +13,7 @@
 | `series/story-demo/ep02/` | ตอน 2 "ถ้าตู้เสื้อผ้าเคาะตอบ" (ตู้เปิดบานขวาได้, เสื้อแจ็กเก็ตเทาที่ตะขอข้างประตู) |
 | `outputs/story-demo-ep02/` | ตอน 2 จบแล้ว: `ep02-v1.mp4`, `cover.png` (coverFrame 60) |
 | `outputs/story-demo-ep01/` | ผลงานจบแล้ว: `ep01-v1.mp4` (มีเสียงพากย์), `cover.png`, `takeA.mp3`, `words.json` |
+| `series/ton/ton-series.md` | ซีรีส์ "ต้น" 10 EP: ไบเบิล ตัวละคร คำสั่งภาพ/วิดีโอ AI ทุกตอน |
 | `tools/chrome-proxy.sh` | wrapper ให้ Chrome ของ Remotion วิ่งผ่าน proxy ของ sandbox |
 
 ## ติดตั้งใน session ใหม่ (sandbox ใหม่ไม่มีสกิล ต้องลงใหม่)
