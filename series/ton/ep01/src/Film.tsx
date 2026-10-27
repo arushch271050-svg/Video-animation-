@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Sequence, useCurrentFrame } from "remotion";
 import { loadFont as loadMali } from "@remotion/google-fonts/Mali";
 import { Cam, Shot, type V3 } from "./kit/three";
 import { Click, CREAM, DUR, FPS, FadeOut, Grain, LINE, RED, SANS, Vig, fr, io, useSpr } from "./kit/ui";
@@ -156,7 +156,7 @@ const NotebookText: React.FC = () => {
   );
 };
 
-/** phone search results; the CK book card is found and held on */
+/** phone search results; a mystery book "เปลี่ยนอนาคต" is found and held on (real title revealed in EP2-3) */
 const PhoneSearch: React.FC = () => {
   const f = useCurrentFrame();
   const scroll = io(f, 10, 48, 0, -560);
@@ -178,11 +178,21 @@ const PhoneSearch: React.FC = () => {
             </div>
           ))}
           <div style={{ background: "#1A1D24", borderRadius: 24, padding: 30, display: "flex", gap: 30, fontFamily: SANS, outline: `${6 * pick}px solid ${RED}`, transform: `scale(${1 + 0.04 * pick})` }}>
-            <Img src={staticFile("book-cover.jpg")} style={{ width: 230, borderRadius: 8 }} />
+            {/* mystery book (the real title is revealed in EP2-3): plain dark cover, title only */}
+            <div style={{ width: 230, height: 326, borderRadius: 8, background: "linear-gradient(160deg, #1B1D22 0%, #0C0D10 100%)", boxShadow: "inset 0 0 0 2px #2A2D34, 6px 8px 18px rgba(0,0,0,0.5)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", left: 14, top: 0, bottom: 0, width: 4, background: "#2E3138" }} />
+              <div style={{ color: RED, fontFamily: SANS, fontWeight: 700, fontSize: 52, lineHeight: 1.15, textAlign: "center" }}>เปลี่ยน<br />อนาคต</div>
+              <div style={{ width: 60, height: 4, background: "#D8D2C4", marginTop: 18, borderRadius: 2 }} />
+            </div>
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <div style={{ color: "#F0F2F6", fontSize: 40, fontWeight: 700, lineHeight: 1.3 }}>อยากเป็นคนธรรมดา<br />ไม่ต้องอ่าน</div>
-              <div style={{ color: "#AEB4C2", fontSize: 32, marginTop: 14 }}>CK Cheong</div>
-              <div style={{ color: AMB_T, fontSize: 30, marginTop: 10 }}>★ 4.8 · 349 บาท</div>
+              <div style={{ color: "#F0F2F6", fontSize: 46, fontWeight: 700, lineHeight: 1.3 }}>เปลี่ยนอนาคต</div>
+              <div style={{ color: "#AEB4C2", fontSize: 30, marginTop: 10 }}>หนังสือพัฒนาตัวเอง</div>
+              <div style={{ color: AMB_T, fontSize: 30, marginTop: 10 }}>★★★★★ 4.8 (2,315 รีวิว)</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 14 }}>
+                <span style={{ color: "#F4F5F8", fontSize: 44, fontWeight: 700 }}>฿349</span>
+                <span style={{ color: "#7D8392", fontSize: 28, textDecoration: "line-through" }}>฿395</span>
+              </div>
+              <div style={{ marginTop: 16, background: RED, color: "#FFF6EE", fontSize: 30, fontWeight: 700, padding: "8px 22px", borderRadius: 12, alignSelf: "flex-start", opacity: pick }}>สั่งซื้อ</div>
             </div>
           </div>
         </div>
