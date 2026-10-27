@@ -132,6 +132,8 @@ const SMom = () => { const f = useCurrentFrame(); return <Shot><StallScene mom="
 const STonAnswer = () => { const f = useCurrentFrame(); const d = yawTo(TON3, MOM3); return <Shot><StallScene ton="answer" mt={useMouth("ton")} /><Cam p={[TON3[0] + Math.sin(d) * 1.95, HT + 0.02, TON3[2] + Math.cos(d) * 1.95 - f * 0.002]} t={[TON3[0], HT - 0.06, TON3[2]]} fov={31} drift={0.4} /></Shot>; };
 const SStallWide = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="stack" /><Cam p={[1.6, 1.55, 4.3 - f * 0.006]} t={[0.3, 1.0, -0.5]} fov={44} drift={0.4} /></Shot>; };
 const SDad = () => { const f = useCurrentFrame(); return <Shot><StallScene dad="talk" ton="stack" md={useMouth("dad")} /><Cam p={[DAD3[0] + 0.45, HD + 0.05, DAD3[2] + 1.9 - f * 0.003]} t={[DAD3[0], HD - 0.06, DAD3[2]]} fov={31} drift={0.4} /></Shot>; };
+const SStallFry = () => { const f = useCurrentFrame(); return <Shot><StallScene dad="fry" ton="stack" /><Cam p={[DAD3[0] + 1.1, 1.8, DAD3[2] + 2.3 - f * 0.006]} t={[DAD3[0] + 0.15, 1.25, DAD3[2]]} fov={40} drift={0.4} /></Shot>; };
+const STonWatch = () => { const f = useCurrentFrame(); const d = yawTo(TON3, DAD3); return <Shot><StallScene ton="answer" dad="off" /><Cam p={[TON3[0] + Math.sin(d) * 1.9 + 0.25, HT + 0.03, TON3[2] + Math.cos(d) * 1.9 + 0.45 - f * 0.002]} t={[TON3[0], HT - 0.07, TON3[2]]} fov={31} drift={0.3} /></Shot>; };
 const SDadHands = () => { const f = useCurrentFrame(); return <Shot tilt={false}><StallScene dad="hands" ton="stack" /><pointLight position={[DAD3[0] + 0.5, 1.4, DAD3[2] + 0.4]} intensity={0.8} distance={1.6} color="#FFD3A0" /><Cam p={[DAD3[0] + 0.85, 1.32 - f * 0.0008, DAD3[2] + 0.2]} t={[DAD3[0] + 0.05, 1.0, DAD3[2] + 0.28]} fov={30} drift={0.25} /></Shot>; };
 const SBin = () => { const f = useCurrentFrame(); return <Shot><StallScene drop ton="stack" /><pointLight position={[BIN[0] + 0.4, 1.4, BIN[2] + 0.6]} intensity={1.2} distance={2.2} color="#FFD3A0" /><Cam p={[BIN[0] + 0.6, 1.3, BIN[2] + 1.2 - f * 0.003]} t={[BIN[0], 0.75, BIN[2]]} fov={38} drift={0.3} /></Shot>; };
 const SGiveWide = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="give" dad="off" /><Cam p={[0.02, 1.45, 3.5 - f * 0.006]} t={[0.02, 1.15, 0.85]} fov={40} drift={0.4} /></Shot>; };
@@ -192,9 +194,12 @@ const DAYS = [
   { d: "วันที่ 1", rows: [["ขายได้", "3,120"], ["ไก่", "1,480"], ["แป้ง", "160"], ["น้ำมัน", "240"]] },
   { d: "วันที่ 2", rows: [["ขายได้", "2,960"], ["ไก่", "1,520"], ["แก๊ส", "180"], ["ถุง/ซอส", "95"]] },
   { d: "วันที่ 3", rows: [["ขายได้", "3,340"], ["ไก่", "1,610"], ["น้ำมัน", "240"], ["เหลือทิ้ง", "12 ชิ้น"]] },
+  { d: "วันที่ 5", rows: [["ขายได้", "3,050"], ["ไก่", "1,550"], ["แป้ง", "160"], ["เหลือทิ้ง", "9 ชิ้น"]] },
+  { d: "วันที่ 7", rows: [["ขายได้", "3,410"], ["ไก่", "1,690"], ["แก๊ส", "180"], ["เหลือทิ้ง", "14 ชิ้น"]] },
+  { d: "วันที่ 10", rows: [["ขายได้", "2,880"], ["ไก่", "1,470"], ["น้ำมัน", "240"], ["เหลือทิ้ง", "11 ชิ้น"]] },
 ];
 const NotebookDays: React.FC = () => {
-  const f = useCurrentFrame(); const per = 14; const i = Math.min(DAYS.length - 1, Math.floor(f / per)); const d = DAYS[i];
+  const f = useCurrentFrame(); const per = 22; const i = Math.min(DAYS.length - 1, Math.floor(f / per)); const d = DAYS[i];
   return (
     <AbsoluteFill style={{ background: "#0B0D14", alignItems: "center", justifyContent: "center" }}>
       <Click at={i * per} v={0.2} kind="tick" />
@@ -206,8 +211,8 @@ const NotebookDays: React.FC = () => {
   );
 };
 /** cost chips popping as Ton lists them (roughly on the words of line 12) */
-const CostChips: React.FC<{ dur: number }> = ({ dur }) => {
-  const f = useCurrentFrame(); const items = ["ค่าไก่", "ค่าแป้ง", "ค่าน้ำมัน", "ค่าแก๊ส", "ไก่ที่เหลือทิ้ง"];
+const CostChips: React.FC<{ dur: number; lead?: number }> = ({ dur, lead = 0 }) => {
+  const f = useCurrentFrame() - Math.round(lead * FPS); const items = ["ค่าไก่", "ค่าแป้ง", "ค่าน้ำมัน", "ค่าแก๊ส", "ไก่ที่เหลือทิ้ง"];
   return (
     <AbsoluteFill>
       {items.map((t, i) => { const a = Math.round((dur * FPS * (0.05 + i * 0.17))); const k = Math.max(0, Math.min(1, (f - a) / 5)); return (
@@ -260,29 +265,32 @@ export const CUTS: Cut[] = [
   /* hook: last night's threat, unanswered */
   { a: 0, b: E(1) + 0.3, el: <><SRoomPhone /><ThreatBanner /></> },
   /* flashback */
-  { a: E(1) + 0.3, b: E(2) + 0.4, el: <Memory><SFlashback /></Memory> },
-  { a: E(2) + 0.4, b: T(4) - 0.15, el: <SRoomDark /> },
+  { a: E(1) + 0.3, b: E(2) + 1.7, el: <Memory><SFlashback /></Memory> },
+  { a: E(2) + 1.7, b: E(3) + 1.0, el: <SRoomDark /> },
+  { a: E(3) + 1.0, b: T(4) - 0.15, el: <SStallFry /> },
   /* the stall at night */
   { a: T(4) - 0.15, b: E(4) + 0.1, el: <SMom /> },
   { a: E(4) + 0.1, b: E(5) + 0.35, el: <STonAnswer /> },
   { a: E(5) + 0.35, b: T(6) - 0.1, el: <SStallWide /> },
   { a: T(6) - 0.1, b: E(6) + 0.25, el: <SDad /> },
-  { a: E(6) + 0.25, b: T(8) - 0.2, el: <SDadHands /> },
+  { a: E(6) + 0.25, b: E(7) + 0.9, el: <SDadHands /> },
+  { a: E(7) + 0.9, b: E(7) + 2.5, el: <STonWatch /> },
+  { a: E(7) + 2.5, b: T(8) - 0.2, el: <SStallWide /> },
   /* the book */
   { a: T(8) - 0.2, b: mid(8) + 0.4, el: <SRoomUnwrap /> },
   { a: mid(8) + 0.4, b: T(9), el: <BookReveal /> },
   { a: T(9), b: mid(9), el: <SEyes /> },
-  { a: mid(9), b: E(9) + 0.3, el: <PageTurn /> },
-  { a: E(9) + 0.3, b: E(10) + 0.5, el: <SDecide /> },
+  { a: mid(9), b: E(9) + 1.5, el: <PageTurn /> },
+  { a: E(9) + 1.5, b: E(10) + 0.5, el: <SDecide /> },
   /* tracking every baht */
-  { a: E(10) + 0.5, b: E(11) + 0.15, el: <NotebookDays /> },
-  { a: E(11) + 0.15, b: E(12) + 0.45, el: <><SBin /><CostChips dur={E(12) - E(11)} /></> },
-  { a: E(12) + 0.45, b: E(13) + 1.9, el: <Day14 /> },
+  { a: E(10) + 0.5, b: E(11) + 2.6, el: <NotebookDays /> },
+  { a: E(11) + 2.6, b: E(12) + 0.6, el: <><SBin /><CostChips dur={E(12) - T(12)} lead={T(12) - (E(11) + 2.6)} /></> },
+  { a: E(12) + 0.6, b: E(13) + 3.0, el: <Day14 /> },
   /* ending */
-  { a: E(13) + 1.9, b: T(14) + 0.5, el: <SGiveWide /> },
+  { a: E(13) + 3.0, b: T(14) + 0.5, el: <SGiveWide /> },
   { a: T(14) + 0.5, b: END14 + 0.2, el: <STonGive /> },
-  { a: END14 + 0.2, b: END14 + 1.5, el: <SDadFreeze /> },
-  { a: END14 + 1.5, b: DUR / FPS, el: <NextCard /> },
+  { a: END14 + 0.2, b: END14 + 2.6, el: <SDadFreeze /> },
+  { a: END14 + 2.6, b: DUR / FPS, el: <NextCard /> },
 ];
 export const HERO_S = E(13);
 

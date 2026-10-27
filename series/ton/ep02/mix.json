@@ -1,94 +1,140 @@
 {
-  "video": "out/raw.mp4",
-  "voice": "vo/vo_aligned.wav",
-  "out": "out/ep01-v4.mp4",
-  "bgm": null,
-  "clicks_volume": 0.9,
-  "sfx": [
-    {
-      "file": "vo/sfx/school.wav",
-      "at": 0,
-      "volume": 0.175,
-      "loop_to": "L4e+0.9",
-      "bed": true
-    },
-    {
-      "file": "vo/sfx/school.wav",
-      "at": "L4e+0.9",
-      "volume": 0.11,
-      "lowpass": 1800,
-      "loop_to": "L6e+0.7",
-      "bed": true
-    },
-    {
-      "file": "vo/sfx/sizzle.wav",
-      "at": "L6e+0.7",
-      "volume": 0.15,
-      "loop_to": "L8e+0.9",
-      "bed": true
-    },
-    {
-      "file": "vo/sfx/street.wav",
-      "at": "L6e+0.7",
-      "volume": 0.175,
-      "loop_to": "L8e+0.9",
-      "bed": true
-    },
-    {
-      "file": "vo/sfx/fan.wav",
-      "at": "L8e+0.9",
-      "volume": 0.14,
-      "loop_to": "L12e+0.8",
-      "bed": true
-    },
-    {
-      "file": "vo/sfx/gang_laugh.wav",
-      "at": "L1e+0.1",
-      "volume": 0.75
-    },
-    {
-      "file": "vo/sfx/gang_laugh.wav",
-      "at": "L4e+0.05",
-      "volume": 1.0
-    },
-    {
-      "file": "vo/sfx/gang_laugh.wav",
-      "at": "L4e+2.6",
-      "volume": 0.35,
-      "lowpass": 1100
-    },
-    {
-      "file": "vo/sfx/riser.wav",
-      "at": "L12e+1.4",
-      "volume": 0.7
-    },
-    {
-      "file": "vo/sfx/impact.wav",
-      "at": "L12e+4.3",
-      "volume": 0.9
-    },
-    {
-      "file": "vo/sfx/heartbeat.wav",
-      "at": "L12e+5.5",
-      "volume": 0.55
-    },
-    {
-      "file": "vo/sfx/thud.wav",
-      "at": "L13e+1.7",
-      "volume": 0.9
-    }
-  ],
-  "note": "mix with ../tools/mix_ton.py. bed=true: ambience, half volume, cut while anyone speaks, muted in 'mute' windows (notebook + phone + ending). Others = story sounds (laughs, riser, impact) lightly ducked.",
-  "mute": [
-    [
-      "L10e+0.3",
-      "L13e+6"
-    ]
-  ],
-  "bed_duck": {
-    "threshold": 0.008,
-    "ratio": 20,
-    "attack": 15,
-    "release": 350
+ "video": "out/raw.mp4",
+ "voice": "vo/vo_aligned.wav",
+ "out": "out/ep02-v1.mp4",
+ "bgm": null,
+ "clicks_volume": 0.9,
+ "sfx": [
+  {
+   "file": "vo/sfx/fan.wav",
+   "at": 0,
+   "volume": 0.12,
+   "loop_to": 3.11,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/fan.wav",
+   "at": 8.49,
+   "volume": 0.12,
+   "loop_to": 13.25,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/sizzle.wav",
+   "at": 13.25,
+   "volume": 0.16,
+   "loop_to": 30.46,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 13.25,
+   "volume": 0.16,
+   "loop_to": 30.46,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/fan.wav",
+   "at": 30.46,
+   "volume": 0.12,
+   "loop_to": 46.28,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/sizzle.wav",
+   "at": 53.27,
+   "volume": 0.14,
+   "loop_to": 59.31,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 66.76,
+   "volume": 0.12,
+   "loop_to": 76.32,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 3.11,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 6.84,
+   "volume": 0.45,
+   "lowpass": 1500
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 32.5,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 38.23,
+   "volume": 0.7
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 39.43,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 46.38,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 51.57,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 59.36,
+   "volume": 0.65
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 64.06,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 73.52,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 76.32,
+   "volume": 0.9
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 76.79,
+   "volume": 0.6
   }
+ ],
+ "mute": [
+  [
+   32.45,
+   41.71
+  ],
+  [
+   46.28,
+   53.27
+  ],
+  [
+   59.31,
+   81.72
+  ]
+ ],
+ "bed_duck": {
+  "threshold": 0.008,
+  "ratio": 20,
+  "attack": 15,
+  "release": 350
+ },
+ "note": "mix with ../tools/mix_ton.py (RULES.md): beds quiet, cut under speech, muted in highlights (book, notebook, ending)"
 }
