@@ -32,3 +32,7 @@ export const KID2: Look = { ...PALB, skin: "#E8C2A0", hairC: "#111", shoes: "#EE
 
 /** characters shown by the Turn-<id> QA comps. */
 export const CAST: Record<string, Look> = { ton: TON_BAG, pakin: PAKIN, pala: PALA, palb: PALB, dad: DAD, mom: MOM };
+
+/** flash-forward (5 years later): adult Ton in a dark navy coat, neat hair; adult Pakin in a grey shirt */
+export const TON_ADULT: Look = { ...TON, hair: "short", outfit: "coat", top: "#1B2238", pants: "#1B2238", shoes: "#141418", sole: "#141418", trim: undefined, height: 0.9 };
+export const PAKIN_ADULT: Look = { ...PAKIN, outfit: "shirt", top: "#8C9099", pants: "#3A3D44", shoes: "#2A2A2E", sole: "#1E1E22", holdR: undefined, height: 0.9 };

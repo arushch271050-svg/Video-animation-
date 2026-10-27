@@ -4,7 +4,8 @@ import { loadFont as loadMali } from "@remotion/google-fonts/Mali";
 import { Cam, Shot, type V3 } from "./kit/three";
 import { Click, CREAM, DUR, FPS, FadeOut, Grain, LINE, RED, SANS, Vig, fr, io, useSpr } from "./kit/ui";
 import { Char, SLIM, headCenter, type Pose } from "./rig/char";
-import { DAD, KID1, KID2, MOM, PAKIN, PALA, PALB, TON_BAG, TON_PHONE, TON } from "./rig/cast";
+import { DAD, KID1, KID2, MOM, PAKIN, PAKIN_ADULT, PALA, PALB, TON_ADULT, TON_BAG, TON_PHONE, TON } from "./rig/cast";
+import { PakinRoom, SEAT_P, Stage } from "./sets/pakinroom";
 import { WALK_STRIDE, walkPose, blendPose, reachPose } from "./rig/poses";
 import { BACK_PATH_Z, FRONT_PATH_Z, School } from "./sets/school";
 import { COIN_TABLE, Stall, WOK } from "./sets/stall";
@@ -22,8 +23,18 @@ const HAND = loadMali("normal", { weights: ["500", "600"], subsets: ["thai", "la
 const T = (n: number) => LINE[n - 1].t;
 const E = (n: number) => LINE[n - 1].end;
 const mid = (n: number) => (T(n) + E(n)) / 2;
-const LAST = E(LINE.length);
-const BLACK_A = LAST + 0.8, MSG_A = BLACK_A + 3.4, NEXT_A = MSG_A + 2.6;
+
+/* ending (micro-drama style): question slam → 5-years-later flash → smash back to Pakin typing the threat (his VO = line 13)
+   → Ton reads it, eyes up to camera → hard cut to black + EP2. All keyed to line 12 end / line 13. */
+const E12 = E(12);
+const QA = E12 + 0.5;              // question card (riser starts)
+const FF = QA + 2.4;               // flash-forward, shot A: adult Ton walks in
+const FFB = FF + 1.4;              // flash-forward, shot B: adult Pakin turns (impact)
+const BACK = FF + 2.6;             // smash cut: Pakin's room
+const L13 = LINE.length >= 13 ? 13 : 12;
+const READ = LINE.length >= 13 ? mid(13) : BACK + 1.5;   // cut to Ton reading the message
+const NEXT_A = (LINE.length >= 13 ? E(13) : BACK + 3) + 1.7;
+void L13;
 
 const blink = (f: number, s = 0) => ((f + s * 23) % 83 < 4 ? 1 : 0);
 const face = (L: typeof TON) => headCenter(L);
@@ -138,6 +149,31 @@ const SRoomWide = () => { const f = useCurrentFrame(); return <Shot><Room /><Cam
 const SRoomFace: React.FC<{ act?: "phone" | "write" }> = ({ act = "phone" }) => { const f = useCurrentFrame(); return <Shot><Room act={act} /><Cam p={[SEAT[0] + 0.2, FLOOR_FACE + 0.12, SEAT[2] + 1.45 - Math.min(f, 90) * 0.0015]} t={[SEAT[0], FLOOR_FACE - 0.02, SEAT[2]]} fov={40} drift={0.3} /></Shot>; };
 const SNotebook = () => { const f = useCurrentFrame(); return <Shot tilt={false}><Bedroom phone={0.6} /><pointLight position={[NOTEBOOK[0], 0.5, NOTEBOOK[2] + 0.2]} intensity={0.8} distance={1.2} color="#DDE6FF" /><Cam p={[NOTEBOOK[0], 0.95 - f * 0.001, NOTEBOOK[2] + 0.1]} t={[NOTEBOOK[0], 0, NOTEBOOK[2]]} fov={44} drift={0.1} /></Shot>; };
 
+/* ═════════ ENDING — flash-forward + Pakin's room ═════════ */
+const SFutureTon = () => {
+  const f = useCurrentFrame(); const dist = f * 0.012;            // slow-motion walk toward the camera
+  const pose: Pose = { ...walkPose((dist / WALK_STRIDE) * Math.PI * 2, 0.8), head: [0.02, 0, 0], browUp: 0.1, blink: 0 };
+  return <Shot tilt={false}><Stage><Char L={TON_ADULT} p={[0, 0, -0.8 + dist]} ry={0} pose={pose} seed={1} /><pointLight position={[0.6, 1.7, 0.9]} intensity={1.6} distance={3.5} color="#FFE8CC" /></Stage><Cam p={[0.12, 0.75, 1.75 - f * 0.004]} t={[0, 1.2, -0.5]} fov={40} drift={0.2} /></Shot>;
+};
+const SFuturePakin = () => {
+  const f = useCurrentFrame(); const turn = io(f, 0, 9, Math.PI * 0.9, 0);
+  const pose: Pose = { head: [-0.05, 0, 0], browUp: 1, mouth: 0.35, blink: 0 };
+  const h = face(PAKIN_ADULT);
+  return <Shot tilt={false}><Stage warm><Char L={PAKIN_ADULT} p={[0, 0, 0]} ry={turn} pose={pose} seed={3} /></Stage><Cam p={[0.1, h + 0.02, 1.7 - f * 0.012]} t={[0, h - 0.04, 0]} fov={30} drift={0.6} /></Shot>;
+};
+const SPakinTyping = () => {
+  const f = useCurrentFrame();
+  const pose: Pose = { y: -0.3, hipL: [-1.5, 0, 0.12], hipR: [-1.5, 0, -0.12], knL: 1.5, knR: 1.5, shR: [-1.05 + Math.sin(f * 0.9) * 0.03, 0.3, -0.25], elR: -1.5, shL: [-0.5, 0, 0.3], elL: -1.1, head: [0.22, 0.12, -0.08], mouth: 0, browUp: -0.35, blink: blink(f, 3) };
+  const h = face(PAKIN) - 0.3 * SLIM.leg * PAKIN.height;
+  return <Shot><PakinRoom><Char L={PAKIN} p={SEAT_P} ry={0} pose={pose} seed={3} /></PakinRoom><Cam p={[SEAT_P[0] + 0.55, h + 0.1, SEAT_P[2] + 1.9 - f * 0.006]} t={[SEAT_P[0], h - 0.08, SEAT_P[2]]} fov={34} drift={0.5} /></Shot>;
+};
+/** Ton reads the threat: head down at the phone, then the eyes come up to the camera; fast push-in */
+const STonReads = () => {
+  const f = useCurrentFrame(); const up = io(f, 30, 48, 0, 1);
+  const pose: Pose = { ...FLOOR_SIT, ...PHONE_UP, head: [0.32 - 0.3 * up, 0, 0], browUp: 0.6 - 0.9 * up, mouth: 0, blink: 0 };
+  return <Shot><Bedroom><Char L={TON_PHONE} p={SEAT} ry={0} pose={pose} seed={1} /></Bedroom><Cam p={[SEAT[0] + 0.1, FLOOR_FACE + 0.06, SEAT[2] + 1.45 - Math.min(f, 70) * 0.009]} t={[SEAT[0], FLOOR_FACE - 0.02, SEAT[2]]} fov={38} drift={0.2} /></Shot>;
+};
+
 /* ═════════ DOM overlays ═════════ */
 /** 3 handwritten questions appearing on the notebook page, one per ~1.1 s */
 const NOTE_Q = ["1. ทำอย่างไรให้เงินเหลือ?", "2. ทำอย่างไรให้รายได้เติบโต?", "3. ทำอย่างไรให้ตัดสินใจได้ดีขึ้น?"];
@@ -202,24 +238,39 @@ const PhoneSearch: React.FC = () => {
 };
 const AMB_T = "#E9B84A";
 
-/** black card with the question */
+/** black card with the question: lines slam in with a hit, red underline wipes */
 const BlackCard: React.FC = () => {
-  const a = useSpr(8, 16), b = useSpr(26, 16);
+  const f = useCurrentFrame();
+  const a = useSpr(4, 18), b = useSpr(22, 14);
+  const wipe = io(f, 34, 52, 0, 1);
+  const shake = f >= 22 && f < 30 ? Math.sin(f * 3.1) * 8 * (30 - f) / 8 : 0;
   return (
-    <AbsoluteFill style={{ background: "#000", alignItems: "center", justifyContent: "center", textAlign: "center", fontFamily: SANS }}>
-      <div style={{ color: "#BFC3CC", fontSize: 50, opacity: a, translate: `0 ${(1 - a) * 20}px` }}>อีก 5 ปีข้างหน้า</div>
-      <div style={{ color: CREAM, fontSize: 66, fontWeight: 700, lineHeight: 1.35, marginTop: 26, maxWidth: 900, opacity: b, translate: `0 ${(1 - b) * 20}px` }}>คนที่หัวเราะเขาในวันนี้<br />จะจำเขาได้หรือไม่?</div>
+    <AbsoluteFill style={{ background: "#000", alignItems: "center", justifyContent: "center", textAlign: "center", fontFamily: SANS, transform: `translateX(${shake}px)` }}>
+      <div style={{ color: "#9AA0AA", fontSize: 50, letterSpacing: 6, opacity: a, transform: `scale(${1.4 - 0.4 * a})` }}>อีก 5 ปีข้างหน้า</div>
+      <div style={{ color: CREAM, fontSize: 74, fontWeight: 700, lineHeight: 1.3, marginTop: 30, maxWidth: 940, opacity: b, transform: `scale(${1.25 - 0.25 * b})` }}>คนที่หัวเราะเขาในวันนี้<br />จะจำเขาได้หรือไม่?</div>
+      <div style={{ width: 520 * wipe, height: 8, background: RED, borderRadius: 4, marginTop: 26 }} />
     </AbsoluteFill>
   );
 };
 
-/** lock-screen notification from Pakin */
-const Threat: React.FC = () => {
-  const s = useSpr(6, 13);
+/** "5 ปีต่อมา" tag + letterbox bars for the flash-forward */
+const FutureLabel: React.FC = () => (
+  <AbsoluteFill>
+    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 210, background: "#000" }} />
+    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 210, background: "#000" }} />
+    <div style={{ position: "absolute", top: 120, left: 60, color: "#E9E4D8", fontFamily: SANS, fontSize: 40, letterSpacing: 8, opacity: 0.9 }}>5 ปีต่อมา</div>
+  </AbsoluteFill>
+);
+const WhiteFlash: React.FC = () => { const f = useCurrentFrame(); return <AbsoluteFill style={{ background: "#fff", opacity: Math.max(0, 1 - f / 6) }} />; };
+
+/** lock-screen style banner dropping in over Ton's face */
+const ThreatBanner: React.FC = () => {
+  const s = useSpr(2, 13);
   return (
-    <AbsoluteFill style={{ background: "#000", alignItems: "center" }}>
-      <Click at={6} v={0.5} kind="tick" />
-      <div style={{ marginTop: 620, width: 900, background: "rgba(38,40,48,0.96)", borderRadius: 36, padding: "30px 36px", fontFamily: SANS, transform: `translateY(${(1 - s) * -120}px)`, opacity: s }}>
+    <AbsoluteFill style={{ alignItems: "center" }}>
+      <Click at={2} v={0.5} kind="tick" />
+      <Click at={9} v={0.35} kind="tick" />
+      <div style={{ marginTop: 300, width: 900, background: "rgba(30,32,40,0.94)", borderRadius: 36, padding: "28px 36px", fontFamily: SANS, transform: `translateY(${(1 - s) * -160}px)`, opacity: s, boxShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
         <div style={{ display: "flex", justifyContent: "space-between", color: "#9AA0AE", fontSize: 30 }}><span>ข้อความ · ภาคิน</span><span>ตอนนี้</span></div>
         <div style={{ color: "#F4F5F8", fontSize: 44, fontWeight: 600, marginTop: 14, lineHeight: 1.35 }}>พรุ่งนี้เอาไก่มาให้กูด้วยนะ<br />ถ้าไม่เอามา มึงเจอดีแน่</div>
       </div>
@@ -233,7 +284,7 @@ const Next: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#000", alignItems: "center", justifyContent: "center", textAlign: "center", fontFamily: SANS }}>
       <Click at={6} v={0.35} />
-      <div style={{ color: "#8A8F9A", fontSize: 38, opacity: a }}>จบ EP 1 — ติดตาม</div>
+      <div style={{ color: "#8A8F9A", fontSize: 38, opacity: a }}>ติดตามตอนต่อไป</div>
       <div style={{ color: CREAM, fontSize: 84, fontWeight: 700, marginTop: 14, opacity: a }}>EP 2</div>
       <div style={{ width: 120, height: 6, background: RED, borderRadius: 3, margin: "22px auto", opacity: a }} />
       <div style={{ color: RED, fontSize: 60, fontWeight: 700, maxWidth: 900, lineHeight: 1.3, opacity: b }}>หนังสือเล่มแรก<br />ที่เปลี่ยนความคิด</div>
@@ -275,13 +326,17 @@ export const CUTS: Cut[] = [
   { a: E(10) + 0.3, b: T(11) - 0.1, el: <><SNotebook /><NotebookText /></> },
   /* scene 5 */
   { a: T(11) - 0.1, b: mid(12), el: <PhoneSearch /> },
-  { a: mid(12), b: BLACK_A, el: <SRoomFace /> },
-  { a: BLACK_A, b: MSG_A, el: <BlackCard /> },
-  { a: MSG_A, b: NEXT_A, el: <Threat /> },
+  { a: mid(12), b: QA, el: <SRoomFace /> },
+  /* ending */
+  { a: QA, b: FF, el: <BlackCard /> },
+  { a: FF, b: FFB, el: <><SFutureTon /><FutureLabel /></> },
+  { a: FFB, b: BACK, el: <><SFuturePakin /><FutureLabel /><WhiteFlash /></> },
+  { a: BACK, b: READ, el: <SPakinTyping /> },
+  { a: READ, b: NEXT_A, el: <><STonReads /><ThreatBanner /></> },
   { a: NEXT_A, b: DUR / FPS, el: <Next /> },
 ];
 
-export const HERO_S = MSG_A;
+export const HERO_S = FFB;
 export const Film: React.FC<{ noCaps?: boolean }> = ({ noCaps }) => (
   <AbsoluteFill style={{ background: "#07090F" }}>
     {CUTS.map((c, i) => (
@@ -290,10 +345,10 @@ export const Film: React.FC<{ noCaps?: boolean }> = ({ noCaps }) => (
       </Sequence>
     ))}
     <Vig />
-    <FadeOut from={DUR - 20} />
+    <FadeOut from={DUR - 8} len={8} />
     <Grain amount={0.04} />
     {/* soft dark band so captions stay readable over bright daytime shots */}
     {noCaps ? null : <AbsoluteFill style={{ background: "linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.32) 64%, rgba(0,0,0,0.32) 76%, transparent 82%)" }} />}
-    {noCaps ? null : <Captions hideFrom={BLACK_A} />}
+    {noCaps ? null : <Captions hideFrom={E12 + 0.3} />}
   </AbsoluteFill>
 );

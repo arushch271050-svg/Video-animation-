@@ -37,11 +37,6 @@
       "loop_to": "L12e+0.8"
     },
     {
-      "file": "vo/sfx/heartbeat.wav",
-      "at": "L12e+0.9",
-      "volume": 0.6
-    },
-    {
       "file": "vo/sfx/gang_laugh.wav",
       "at": "L1e+0.1",
       "volume": 0.75
@@ -56,6 +51,26 @@
       "at": "L4e+2.6",
       "volume": 0.35,
       "lowpass": 1100
+    },
+    {
+      "file": "vo/sfx/riser.wav",
+      "at": "L12e+1.4",
+      "volume": 0.7
+    },
+    {
+      "file": "vo/sfx/impact.wav",
+      "at": "L12e+4.3",
+      "volume": 0.9
+    },
+    {
+      "file": "vo/sfx/heartbeat.wav",
+      "at": "L12e+5.5",
+      "volume": 0.55
+    },
+    {
+      "file": "vo/sfx/thud.wav",
+      "at": "L13e+1.7",
+      "volume": 0.9
     }
   ],
   "note": "beds per scene (school / back walkway / stall / bedroom); voice ducks every bed via sidechain in mix.py; gang_laugh.wav = synthetic group laughter (tools/laugh.py), 3 hits: after L1, after L4 (loudest), fading behind Ton on the back walkway"
