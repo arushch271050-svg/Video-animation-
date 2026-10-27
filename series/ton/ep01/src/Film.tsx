@@ -135,7 +135,7 @@ const Room: React.FC<{ act?: "phone" | "write" }> = ({ act = "phone" }) => {
   return <Bedroom><Char L={act === "phone" ? TON_PHONE : TON} p={SEAT} ry={0} pose={pose} seed={1} /></Bedroom>;
 };
 const SRoomWide = () => { const f = useCurrentFrame(); return <Shot><Room /><Cam p={[1.2, 1.5, 1.3 - f * 0.0015]} t={[SEAT[0], 0.45, SEAT[2] - 0.1]} fov={50} drift={0.3} /></Shot>; };
-const SRoomFace: React.FC<{ act?: "phone" | "write" }> = ({ act = "phone" }) => { const f = useCurrentFrame(); return <Shot><Room act={act} /><Cam p={[SEAT[0] + 0.2, FLOOR_FACE + 0.08, SEAT[2] + 1.35 - f * 0.002]} t={[SEAT[0], FLOOR_FACE - 0.05, SEAT[2]]} fov={40} drift={0.3} /></Shot>; };
+const SRoomFace: React.FC<{ act?: "phone" | "write" }> = ({ act = "phone" }) => { const f = useCurrentFrame(); return <Shot><Room act={act} /><Cam p={[SEAT[0] + 0.2, FLOOR_FACE + 0.12, SEAT[2] + 1.45 - Math.min(f, 90) * 0.0015]} t={[SEAT[0], FLOOR_FACE - 0.02, SEAT[2]]} fov={40} drift={0.3} /></Shot>; };
 const SNotebook = () => { const f = useCurrentFrame(); return <Shot tilt={false}><Bedroom phone={0.6} /><pointLight position={[NOTEBOOK[0], 0.5, NOTEBOOK[2] + 0.2]} intensity={0.8} distance={1.2} color="#DDE6FF" /><Cam p={[NOTEBOOK[0], 0.95 - f * 0.001, NOTEBOOK[2] + 0.1]} t={[NOTEBOOK[0], 0, NOTEBOOK[2]]} fov={44} drift={0.1} /></Shot>; };
 
 /* ═════════ DOM overlays ═════════ */
@@ -282,6 +282,8 @@ export const Film: React.FC<{ noCaps?: boolean }> = ({ noCaps }) => (
     <Vig />
     <FadeOut from={DUR - 20} />
     <Grain amount={0.04} />
+    {/* soft dark band so captions stay readable over bright daytime shots */}
+    {noCaps ? null : <AbsoluteFill style={{ background: "linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.32) 64%, rgba(0,0,0,0.32) 76%, transparent 82%)" }} />}
     {noCaps ? null : <Captions hideFrom={BLACK_A} />}
   </AbsoluteFill>
 );
