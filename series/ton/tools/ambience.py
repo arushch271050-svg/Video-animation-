@@ -38,3 +38,15 @@ save(f"{out}/street.wav", loopfade(st))
 # fan: motor hum (100 Hz + harmonics, slight wobble) + airflow
 fan = sum(np.sin(2 * np.pi * h * 100 * t * (1 + 0.002 * np.sin(t * 0.9))) / h for h in (1, 2, 3)) * 0.08 + lp(rng.standard_normal(N), 1400) * 0.6 * (1 + 0.15 * np.sin(t * 2 * np.pi / 5))
 save(f"{out}/fan.wav", loopfade(fan))
+# page turn: two paper swishes (band-passed noise with a fast attack) + a soft flap
+pg = np.zeros(int(0.9 * SR))
+for s, g in [(0.05, 1.0), (0.32, 0.7)]:
+    n = int(0.28 * SR); e = np.exp(-np.linspace(0, 1, n) * 6) * np.minimum(1, np.linspace(0, 1, n) * 30)
+    pg[int(s * SR):int(s * SR) + n] += bp(rng.standard_normal(n), 1800, 7500)[:n] * e * g
+save(f"{out}/page.wav", pg)
+# pen scratch: short gritty strokes
+pen = np.zeros(int(1.6 * SR))
+for s in np.arange(0.05, 1.5, 0.19):
+    n = int(rng.uniform(0.08, 0.15) * SR); i = int(s * SR); e = np.sin(np.linspace(0, np.pi, n))
+    pen[i:i + n] += bp(rng.standard_normal(n), 3000, 9000)[:n] * e * rng.uniform(0.5, 1)
+save(f"{out}/pen.wav", pen)
