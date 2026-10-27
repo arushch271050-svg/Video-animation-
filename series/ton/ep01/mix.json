@@ -1,40 +1,45 @@
 {
   "video": "out/raw.mp4",
   "voice": "vo/vo_aligned.wav",
-  "out": "out/ep01-v1.mp4",
+  "out": "out/ep01-v4.mp4",
   "bgm": null,
   "clicks_volume": 0.9,
   "sfx": [
     {
       "file": "vo/sfx/school.wav",
       "at": 0,
-      "volume": 0.35,
-      "loop_to": "L4e+0.9"
+      "volume": 0.175,
+      "loop_to": "L4e+0.9",
+      "bed": true
     },
     {
       "file": "vo/sfx/school.wav",
       "at": "L4e+0.9",
-      "volume": 0.22,
+      "volume": 0.11,
       "lowpass": 1800,
-      "loop_to": "L6e+0.7"
+      "loop_to": "L6e+0.7",
+      "bed": true
     },
     {
       "file": "vo/sfx/sizzle.wav",
       "at": "L6e+0.7",
-      "volume": 0.3,
-      "loop_to": "L8e+0.9"
+      "volume": 0.15,
+      "loop_to": "L8e+0.9",
+      "bed": true
     },
     {
       "file": "vo/sfx/street.wav",
       "at": "L6e+0.7",
-      "volume": 0.35,
-      "loop_to": "L8e+0.9"
+      "volume": 0.175,
+      "loop_to": "L8e+0.9",
+      "bed": true
     },
     {
       "file": "vo/sfx/fan.wav",
       "at": "L8e+0.9",
-      "volume": 0.28,
-      "loop_to": "L12e+0.8"
+      "volume": 0.14,
+      "loop_to": "L12e+0.8",
+      "bed": true
     },
     {
       "file": "vo/sfx/gang_laugh.wav",
@@ -73,5 +78,17 @@
       "volume": 0.9
     }
   ],
-  "note": "beds per scene (school / back walkway / stall / bedroom); voice ducks every bed via sidechain in mix.py; gang_laugh.wav = synthetic group laughter (tools/laugh.py), 3 hits: after L1, after L4 (loudest), fading behind Ton on the back walkway"
+  "note": "mix with ../tools/mix_ton.py. bed=true: ambience, half volume, cut while anyone speaks, muted in 'mute' windows (notebook + phone + ending). Others = story sounds (laughs, riser, impact) lightly ducked.",
+  "mute": [
+    [
+      "L10e+0.3",
+      "L13e+6"
+    ]
+  ],
+  "bed_duck": {
+    "threshold": 0.008,
+    "ratio": 20,
+    "attack": 15,
+    "release": 350
+  }
 }

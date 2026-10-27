@@ -70,7 +70,7 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
 ## EP1 ซีรีส์ต้น (3D) — สถานะ 2026-10-27
 - โปรเจกต์: `series/ton/ep01/` (บทผู้ใช้ใน script.md) · เสียงดิบ F5 อยู่ scratchpad `ep1vo/` (ไม่ลง repo: มีเสียงโคลนผู้ใช้)
 - ไปป์ไลน์เสียง: F5 ต่อบรรทัด → `tools/emote.py` (WORLD ปรับ pitch/ช่วงขึ้นลง/ความเร็วตามอารมณ์ จาก `ep01/vo/emotion.json`)
-  → `tools/assemble.py` (ต่อเสียงตาม `vo/gaps.json` + เขียน src/lines.json) → render → `mix.py`
+  → `tools/assemble.py` (ต่อเสียงตาม `vo/gaps.json` + เขียน src/lines.json) → render → `tools/mix_ton.py` (bed เบา/ดับตอนพูด/ปิดช่วงไฮไลต์)
 - เสียงหัวเราะทั้งแก๊ง: `tools/laugh.py` (สังเคราะห์จากสระ /a/ ของเสียงจริง) → `vo/sfx/gang_laugh.wav`; F5 หัวเราะเองไม่ได้
 - ผู้ใช้สั่ง: ยังไม่เฉลยหนังสือ CK ใน EP1 — หน้ามือถือเป็นหนังสือ "เปลี่ยนอนาคต" (ราคา/รีวิว) ไม่มีชื่อผู้แต่ง
   **เฉลยใน EP2 หรือ EP3 หลังต้นเปลี่ยนไปแล้ว ให้ต้นพูดเอง** เช่น "ตั้งแต่ผมได้อ่านเล่มนี้ ผมก็เปลี่ยนไป…" (ใช้ public/book-cover.jpg ตอนเฉลย)
