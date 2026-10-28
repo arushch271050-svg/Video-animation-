@@ -106,7 +106,7 @@ const Yard: React.FC<YardAct> = ({ ton = "stand", pak = "raise", pb = "laugh", m
       <Char L={KID1} p={K3} ry={yawTo(K3, TON2)} pose={LAUGH(f, 4)} seed={9} />
       {/* scattered pages: fall from Pakin's hand (pages = local frame they started), then lie on the ground */}
       {pages >= 0 ? PAGES.map((p, i) => {
-        const q = Math.max(0, Math.min(1, (f - pages - p.d) / 40)); const from: V3 = [PAK2[0] - 0.2, 2.0, Z];
+        const q = Math.max(0, Math.min(1, (f - pages - p.d) / 22)); const from: V3 = [PAK2[0] - 0.2, 2.0, Z];
         const pos = lerp3(from, p.to, q); pos[1] = from[1] + (p.to[1] - from[1]) * (1 - (1 - q) * (1 - q));
         return <mesh key={i} position={pos} rotation={[-Math.PI / 2 + (1 - q) * Math.sin(f / 5 + i) * 0.9, (1 - q) * f * 0.08, i * 0.7]}><planeGeometry args={[0.15, 0.2]} /><meshStandardMaterial color="#F3EFE4" side={2} /></mesh>;
       }) : null}
@@ -117,11 +117,11 @@ const HTK = face(TON) + (CROUCH.y ?? 0) * SLIM.leg * TON.height;
 const SRaise = () => { const f = useCurrentFrame(); return <Shot><Yard pak="raise" mp={useMouth("pakin")} /><Cam p={[-0.45, 0.55, Z + 1.35 - f * 0.002]} t={[PAK2[0], 1.7, Z]} fov={42} drift={0.5} /></Shot>; };
 const SPhones = () => { const f = useCurrentFrame(); return <Shot><Yard pak="raise" /><Cam p={[K1[0] + Math.sin(yawTo(K1, TON2)) * 1.3 + 0.3, face(KID1) + 0.05, K1[2] + Math.cos(yawTo(K1, TON2)) * 1.3 + f * 0.003]} t={[K1[0], face(KID1) - 0.1, K1[2]]} fov={34} drift={0.6} /></Shot>; };
 const SPalB = () => { const f = useCurrentFrame(); return <Shot><Yard pak="raise" pb="talk" mb={useMouth("palb")} /><Cam p={[PB2[0] + 1.5, HB - 0.05, PB2[2] + 0.9 - f * 0.002]} t={[PB2[0], HB - 0.05, PB2[2]]} fov={32} drift={0.5} /></Shot>; };
-const SFling = () => { const f = useCurrentFrame(); const k = io(f, 4, 12, 0, 1); return <Shot><Yard pak="fling" k={k} pages={8} /><Cam p={[-0.1, 1.3, Z + 2.3 - f * 0.004]} t={[-0.1, 0.9, Z]} fov={44} drift={0.4} /></Shot>; };
+const SFling = () => { const f = useCurrentFrame(); const k = io(f, 1, 7, 0, 1); return <Shot><Yard pak="fling" k={k} pages={5} /><Cam p={[-0.1, 1.3, Z + 2.3 - f * 0.004]} t={[-0.1, 0.9, Z]} fov={44} drift={0.4} /></Shot>; };
 const SLow = () => { return <Shot><Yard pak="point" ton="kneel" mp={useMouth("pakin")} pages={-200} /><Cam p={[PAK2[0] - 1.25, 0.3, Z + 0.95]} t={[PAK2[0], HP - 0.05, Z]} fov={40} drift={0.4} /></Shot>; };
 const SHands = () => { const f = useCurrentFrame(); return <Shot tilt={false}><Yard pak="point" ton="kneel" pages={-200} /><Cam p={[TON2[0] + 0.6, 0.62, Z - 1.1 + f * 0.002]} t={[TON2[0] + 0.2, 0.25, Z]} fov={36} drift={0.25} /></Shot>; };
 const STonUp = () => { const f = useCurrentFrame(); return <Shot><Yard pak="point" ton="up" mt={useMouth("ton")} pages={-200} /><Cam p={[TON2[0] + 0.95, HTK + 0.4, Z + 0.25 - f * 0.002]} t={[TON2[0], HTK + 0.02, Z]} fov={32} drift={0.3} /></Shot>; };
-const SLaughWide = () => { const f = useCurrentFrame(); const k = f < 40 ? io(f, 8, 26, 0, 0.75) : io(f, 46, 62, 0.75, 0); return <Shot><Yard pak="laugh" ton="rise" k={k} pages={-200} /><Cam p={[-0.2, 1.6, Z + 4.2 - f * 0.006]} t={[-0.2, 0.9, Z]} fov={44} drift={0.5} /></Shot>; };
+const SLaughWide = () => { const f = useCurrentFrame(); const k = f < 26 ? io(f, 4, 18, 0, 0.75) : io(f, 28, 42, 0.75, 0); return <Shot><Yard pak="laugh" ton="rise" k={k} pages={-200} /><Cam p={[-0.2, 1.6, Z + 4.2 - f * 0.006]} t={[-0.2, 0.9, Z]} fov={44} drift={0.5} /></Shot>; };
 
 /* ═════════ stall ═════════ */
 const DAD3: V3 = [WOK[0], 0, -0.62];
@@ -202,7 +202,7 @@ const HS = face(TON_HOME);
 /** over Ton's shoulder toward the road: the stranger raises his phone at the sign */
 const SAcross: React.FC<{ gone?: boolean }> = ({ gone }) => { const f = useCurrentFrame(); return <Shot><StallScene ton="stand" dad="none" man={gone ? "gone" : "snap"} f0={6} /><Cam p={[TON_SIDE[0] - 0.5, HS + 0.1, TON_SIDE[2] - 0.85]} t={[ACROSS[0] * 0.7, 1.3, ACROSS[2] - 0.5 - f * 0.002]} fov={38} drift={0.3} /></Shot>; };
 /** behind the stranger: his silhouette, phone up, the stall + sign in front of him; flash */
-const SStrangerBack = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="stand" dad="none" man="snap" f0={-10} /><Cam p={[ACROSS[0] - 1.1, 2.0, ACROSS[2] + 2.4 - f * 0.003]} t={[SIGN[0] - 0.3, 1.5, SIGN[2]]} fov={40} drift={0.3} /></Shot>; };
+const SStrangerBack = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="stand" dad="none" man="snap" f0={-12} /><Cam p={[ACROSS[0] - 1.1, 2.0, ACROSS[2] + 2.4 - f * 0.003]} t={[SIGN[0] - 0.3, 1.5, SIGN[2]]} fov={40} drift={0.3} /></Shot>; };
 const STonSus = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="sus" dad="none" man="none" mt={useMouth("ton")} /><Cam p={[TON_SIDE[0] - 0.2, HS + 0.02, TON_SIDE[2] + 1.3 - f * 0.003]} t={[TON_SIDE[0], HS - 0.05, TON_SIDE[2]]} fov={30} drift={0.3} /></Shot>; };
 const STonTurn = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="turn" dad="away" man="none" /><Cam p={[TON_SIDE[0] + 0.3, HS + 0.05, TON_SIDE[2] + 1.6 - f * 0.002]} t={[TON_SIDE[0], HS - 0.1, TON_SIDE[2]]} fov={34} drift={0.3} /></Shot>; };
 const STonFinal: React.FC<{ fastAt: number }> = ({ fastAt }) => { const f = useCurrentFrame(); const fast = io(f, fr(fastAt), fr(fastAt) + 14, 0, 0.75); return <Shot><StallScene ton="sus" dad="none" man="none" /><Cam p={[TON_SIDE[0] - 0.05, HS + 0.02, TON_SIDE[2] + 1.45 - f * 0.0025 - fast]} t={[TON_SIDE[0], HS - 0.03, TON_SIDE[2]]} fov={28} drift={0.2} /></Shot>; };
@@ -348,8 +348,8 @@ export const CUTS: Cut[] = [
   /* scene 1: classroom — the notebook is snatched */
   { a: 0, b: 0.9, el: <SDeskXCU /> },
   { a: 0.9, b: E(1) + 0.2, el: <WhipIn><SPakinSmirk /></WhipIn> },
-  { a: E(1) + 0.2, b: E(2) + 0.9, el: <SPalA /> },
-  { a: E(2) + 0.9, b: T(3) - 0.05, el: <STonEyes /> },
+  { a: E(1) + 0.2, b: E(2) + 0.6, el: <SPalA /> },
+  { a: E(2) + 0.6, b: T(3) - 0.05, el: <STonEyes /> },
   { a: T(3) - 0.05, b: E(3) + 0.3, el: <STonAsk /> },
   { a: E(3) + 0.3, b: E(4) + 1.0, el: <SPakinDrop at={E(4) - (E(3) + 0.3) + 0.1} /> },
   /* scene 2: courtyard — in front of everyone */
@@ -375,21 +375,23 @@ export const CUTS: Cut[] = [
   { a: E(15) + 0.25, b: E(16) + 0.3, el: <SDadExplain /> },
   { a: E(16) + 0.3, b: mid(17), el: <LedgerWrite /> },
   { a: mid(17), b: E(17) + 0.2, el: <STonWrite /> },
-  { a: E(17) + 0.2, b: E(17) + 2.0, el: <SlamCard text="รายรับ ≠ กำไร" sub="ต้องหักต้นทุนทุกบาทก่อน" /> },
+  { a: E(17) + 0.2, b: E(17) + 1.8, el: <SlamCard text="รายรับ ≠ กำไร" sub="ต้องหักต้นทุนทุกบาทก่อน" /> },
   /* scene 5: late night — the numbers don't match */
-  { a: E(17) + 2.0, b: E(17) + 3.4, el: <SLateWide /> },
-  { a: E(17) + 3.4, b: E(18) + 0.3, el: <Compare /> },
+  { a: E(17) + 1.8, b: E(17) + 2.6, el: <SLateWide /> },
+  { a: E(17) + 2.6, b: E(18) + 0.3, el: <Compare /> },
   { a: E(18) + 0.3, b: T(19) + 0.1, el: <STonEyesLate /> },
   { a: T(19) + 0.1, b: mid(19), el: <Compare flip /> },
   { a: mid(19), b: E(19) + 0.5, el: <STonEyesLate m /> },
   /* scene 6: the stranger */
-  { a: E(19) + 0.5, b: E(19) + 1.9, el: <STonPack /> },
-  { a: E(19) + 1.9, b: E(19) + 3.3, el: <SAcross /> },
-  { a: E(19) + 3.3, b: T(20) - 0.05, el: <><SStrangerBack /><Letterbox /><ShutterFlash at={10} /></> },
+  { a: E(19) + 0.5, b: E(19) + 1.5, el: <STonPack /> },
+  { a: E(19) + 1.5, b: E(19) + 2.6, el: <SAcross /> },
+  { a: E(19) + 2.6, b: T(20) - 0.05, el: <><SStrangerBack /><Letterbox /><ShutterFlash at={8} /></> },
   { a: T(20) - 0.05, b: E(20) + 0.2, el: <STonSus /> },
   { a: E(20) + 0.2, b: E(21) + 0.4, el: <STonTurn /> },
-  { a: E(21) + 0.4, b: E(21) + 1.7, el: <SAcross gone /> },
-  { a: E(21) + 1.7, b: END + 0.45, el: <STonFinal fastAt={T(23) - (E(21) + 1.7) + 1.2} /> },
+  { a: E(21) + 0.4, b: E(21) + 1.4, el: <SAcross gone /> },
+  { a: E(21) + 1.4, b: E(22) + 0.2, el: <STonFinal fastAt={99} /> },
+  { a: E(22) + 0.2, b: T(23) + 2.0, el: <SAcross gone /> },
+  { a: T(23) + 2.0, b: END + 0.45, el: <STonFinal fastAt={END - (T(23) + 2.0) - 1.0} /> },
   /* ending: hard cut to black, the question, EP4 */
   { a: END + 0.45, b: END + 2.8, el: <QuestionCard /> },
   { a: END + 2.8, b: DUR / FPS, el: <NextCard /> },

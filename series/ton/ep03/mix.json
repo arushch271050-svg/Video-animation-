@@ -1,133 +1,166 @@
 {
  "video": "out/raw.mp4",
  "voice": "vo/vo_aligned.wav",
- "out": "out/ep02-v1.mp4",
+ "out": "out/ep03-v1.mp4",
  "bgm": null,
  "clicks_volume": 0.9,
  "sfx": [
   {
-   "file": "vo/sfx/fan.wav",
+   "file": "vo/sfx/school.wav",
    "at": 0,
-   "volume": 0.12,
-   "loop_to": 3.11,
-   "bed": true
-  },
-  {
-   "file": "vo/sfx/fan.wav",
-   "at": 8.49,
-   "volume": 0.12,
-   "loop_to": 13.25,
-   "bed": true
-  },
-  {
-   "file": "vo/sfx/sizzle.wav",
-   "at": 13.25,
-   "volume": 0.16,
-   "loop_to": 30.46,
-   "bed": true
-  },
-  {
-   "file": "vo/sfx/street.wav",
-   "at": 13.25,
-   "volume": 0.16,
-   "loop_to": 30.46,
-   "bed": true
-  },
-  {
-   "file": "vo/sfx/fan.wav",
-   "at": 30.46,
-   "volume": 0.12,
-   "loop_to": 46.28,
-   "bed": true
-  },
-  {
-   "file": "vo/sfx/sizzle.wav",
-   "at": 53.27,
    "volume": 0.14,
-   "loop_to": 59.31,
+   "loop_to": 28.1,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/sizzle.wav",
+   "at": 28.1,
+   "volume": 0.14,
+   "loop_to": 66.12,
    "bed": true
   },
   {
    "file": "vo/sfx/street.wav",
-   "at": 66.76,
+   "at": 28.1,
    "volume": 0.12,
-   "loop_to": 76.32,
+   "loop_to": 66.12,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 79.11,
+   "volume": 0.12,
+   "loop_to": 95.82,
    "bed": true
   },
   {
    "file": "vo/sfx/impact.wav",
-   "at": 3.11,
-   "volume": 0.45
+   "at": 0.25,
+   "volume": 0.35
   },
   {
-   "file": "vo/sfx/gang_laugh.wav",
-   "at": 6.84,
-   "volume": 0.45,
-   "lowpass": 1500
-  },
-  {
-   "file": "vo/sfx/page.wav",
-   "at": 32.5,
+   "file": "vo/sfx/whoosh.wav",
+   "at": 0.8,
    "volume": 0.6
   },
   {
-   "file": "vo/sfx/page.wav",
-   "at": 38.23,
-   "volume": 0.7
-  },
-  {
-   "file": "vo/sfx/page.wav",
-   "at": 39.43,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/pen.wav",
-   "at": 46.38,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/pen.wav",
-   "at": 51.57,
-   "volume": 0.45
-  },
-  {
-   "file": "vo/sfx/riser.wav",
-   "at": 59.36,
-   "volume": 0.65
-  },
-  {
-   "file": "vo/sfx/heartbeat.wav",
-   "at": 64.06,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/riser.wav",
-   "at": 73.52,
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 7.29,
    "volume": 0.5
   },
   {
    "file": "vo/sfx/thud.wav",
-   "at": 76.32,
+   "at": 12.96,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 19.66,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/flutter.wav",
+   "at": 20.11,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 23.0,
+   "volume": 0.5,
+   "loop_to": 28.1
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 26.4,
+   "volume": 0.45,
+   "lowpass": 900
+  },
+  {
+   "file": "vo/sfx/clock.wav",
+   "at": 67.72,
+   "volume": 0.35,
+   "loop_to": 79.11
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 36.85,
+   "volume": 0.4
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 39.05,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 38.12,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 66.12,
+   "volume": 0.55
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 61.3,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 61.9,
+   "volume": 0.4
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 69.72,
+   "volume": 0.45,
+   "loop_to": 74.05
+  },
+  {
+   "file": "vo/sfx/shutter.wav",
+   "at": 81.48,
+   "volume": 0.75
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 81.48,
+   "volume": 0.3
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 85.11,
+   "volume": 0.45,
+   "loop_to": 86.48
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 93.62,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 95.82,
    "volume": 0.9
   },
   {
    "file": "vo/sfx/impact.wav",
-   "at": 76.79,
+   "at": 96.12,
    "volume": 0.6
   }
  ],
  "mute": [
   [
-   32.45,
-   41.71
+   37.72,
+   44.09
   ],
   [
-   46.28,
-   53.27
+   61.1,
+   63.71
   ],
   [
-   59.31,
-   81.72
+   86.48,
+   103.37
   ]
  ],
  "bed_duck": {
@@ -136,5 +169,5 @@
   "attack": 15,
   "release": 350
  },
- "note": "mix with ../tools/mix_ton.py (RULES.md): beds quiet, cut under speech, muted in highlights (book, notebook, ending)"
+ "note": "mix with ../tools/mix_ton.py (RULES.md)"
 }
