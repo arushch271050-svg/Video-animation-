@@ -82,3 +82,10 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
 - F5 บน CPU ช้า ~10–20 นาที/บรรทัด (23 บรรทัด ≈ 5 ชม.) — อย่าใช้ `pgrep -f gen_ep3.py` ใน wrapper (จับตัวเอง) ใช้ `pgrep -f "^python3 gen_ep3"`
 - ฉากใหม่ `src/sets/classroom.tsx`, stall มี dusk + ป้ายร้าน (ไอคอนน่องไก่ ไม่มีตัวหนังสือ), ชายปริศนา STRANGER (ไม่เห็นหน้า)
 - v1: 102 วิ out/ep03-v1.mp4 (มีฉากเฉลย, ผู้ใช้ไม่เอา) · v2: out/ep03-v2.mp4
+
+## EP4 ซีรีส์ต้น — สถานะ 2026-10-29
+- โปรเจกต์ `series/ton/ep04/` (บทผู้ใช้ + บรรทัด 10, 14 ผู้ใช้อนุมัติให้เพิ่ม) · 20 บรรทัด · out/ep04-v1.mp4 ~95 วิ −14.5 LUFS · cover frame 2150
+- เสียงใหม่: supplier = Porameht dev row 382 (~100Hz หลัง emote), stranger = row 152 (~86Hz) · เสียงดิบ scratchpad `ep4vo/`
+- ฉากใหม่: `sets/market.tsx` (ตลาดเช้า), School `night` + BACK_LAMP, stall มีตึกฝั่งตรงข้าม + ซอย ALLEY + ไฟถนน
+- `tools/assemble.py` รองรับ `"lead"` ใน gaps.json (เว้นเงียบก่อนบรรทัด 1 สำหรับฮุกไม่มีเสียงพูด)
+- F5 ในเซสชันนี้เร็วขึ้น (~1–3 นาที/บรรทัด) · ไม่เฉลยของในซอง/แรงจูงใจภาคิน
