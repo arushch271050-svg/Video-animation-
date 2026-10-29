@@ -1,147 +1,159 @@
 {
  "video": "out/raw.mp4",
  "voice": "vo/vo_aligned.wav",
- "out": "out/ep03-v2.mp4",
+ "out": "out/ep04-v1.mp4",
  "bgm": null,
  "clicks_volume": 0.9,
  "sfx": [
   {
-   "file": "vo/sfx/school.wav",
+   "file": "vo/sfx/street.wav",
    "at": 0,
-   "volume": 0.14,
-   "loop_to": 28.1,
+   "volume": 0.13,
+   "loop_to": 13.42,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/school.wav",
+   "at": 13.42,
+   "volume": 0.12,
+   "loop_to": 28.49,
    "bed": true
   },
   {
    "file": "vo/sfx/sizzle.wav",
-   "at": 28.1,
-   "volume": 0.14,
-   "loop_to": 56.38,
+   "at": 28.49,
+   "volume": 0.1,
+   "loop_to": 38.62,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/school.wav",
+   "at": 38.62,
+   "volume": 0.12,
+   "loop_to": 55.84,
    "bed": true
   },
   {
    "file": "vo/sfx/street.wav",
-   "at": 28.1,
-   "volume": 0.12,
-   "loop_to": 56.38,
+   "at": 55.84,
+   "volume": 0.1,
+   "loop_to": 72.32,
    "bed": true
   },
   {
-   "file": "vo/sfx/street.wav",
-   "at": 69.36,
+   "file": "vo/sfx/wind.wav",
+   "at": 72.32,
    "volume": 0.12,
-   "loop_to": 86.08,
+   "loop_to": 89.32,
    "bed": true
   },
   {
-   "file": "vo/sfx/impact.wav",
-   "at": 0.4,
-   "volume": 0.35
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 0.9,
+   "volume": 0.45,
+   "loop_to": 3.4
   },
   {
    "file": "vo/sfx/whoosh.wav",
-   "at": 0.3,
+   "at": 3.3,
    "volume": 0.6
-  },
-  {
-   "file": "vo/sfx/gang_laugh.wav",
-   "at": 7.29,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/thud.wav",
-   "at": 12.96,
-   "volume": 0.6
-  },
-  {
-   "file": "vo/sfx/gang_laugh.wav",
-   "at": 19.66,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/flutter.wav",
-   "at": 20.11,
-   "volume": 0.5
-  },
-  {
-   "file": "vo/sfx/heartbeat.wav",
-   "at": 23.0,
-   "volume": 0.5,
-   "loop_to": 28.1
-  },
-  {
-   "file": "vo/sfx/gang_laugh.wav",
-   "at": 26.4,
-   "volume": 0.45,
-   "lowpass": 900
-  },
-  {
-   "file": "vo/sfx/clock.wav",
-   "at": 57.97,
-   "volume": 0.35,
-   "loop_to": 69.36
   },
   {
    "file": "vo/sfx/impact.wav",
-   "at": 56.38,
-   "volume": 0.55
+   "at": 4.1,
+   "volume": 0.35
   },
   {
-   "file": "vo/sfx/pen.wav",
-   "at": 51.55,
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 17.33,
    "volume": 0.45
   },
   {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 21.1,
+   "volume": 0.5,
+   "lowpass": 1400
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 27.14,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 28.59,
+   "volume": 0.5
+  },
+  {
    "file": "vo/sfx/pen.wav",
-   "at": 52.16,
+   "at": 30.49,
    "volume": 0.4
   },
   {
-   "file": "vo/sfx/heartbeat.wav",
-   "at": 59.97,
-   "volume": 0.45,
-   "loop_to": 64.31
-  },
-  {
-   "file": "vo/sfx/shutter.wav",
-   "at": 71.73,
-   "volume": 0.75
-  },
-  {
    "file": "vo/sfx/impact.wav",
-   "at": 71.73,
-   "volume": 0.3
-  },
-  {
-   "file": "vo/sfx/heartbeat.wav",
-   "at": 75.37,
-   "volume": 0.45,
-   "loop_to": 76.73
+   "at": 47.62,
+   "volume": 0.5
   },
   {
    "file": "vo/sfx/riser.wav",
-   "at": 83.88,
+   "at": 49.98,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 52.18,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 61.5,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 63.9,
+   "volume": 0.5,
+   "loop_to": 66.3
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 68.2,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 74.52,
+   "volume": 0.45,
+   "loop_to": 89.32
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 87.12,
    "volume": 0.6
   },
   {
    "file": "vo/sfx/thud.wav",
-   "at": 86.08,
+   "at": 89.32,
    "volume": 0.9
   },
   {
    "file": "vo/sfx/impact.wav",
-   "at": 86.38,
+   "at": 89.62,
    "volume": 0.6
   }
  ],
  "mute": [
   [
-   51.35,
-   53.97
+   28.49,
+   30.48
   ],
   [
-   76.73,
-   93.62
+   63.3,
+   65.8
+  ],
+  [
+   80.16,
+   96.87
   ]
  ],
  "bed_duck": {
