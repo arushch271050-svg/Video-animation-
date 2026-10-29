@@ -56,7 +56,7 @@ export type Look = {
   /** "dots" = two small dark eyes (default), "big" = cartoon eyes with white + iris */ face?: "dots" | "big"; build?: Build;
   outfit: Outfit; top: string; pants: string; shoes: string; patch?: boolean; fangs?: boolean; lips?: string; brow: string; height: number;
   sole?: string; trim?: string; irisK?: number; hairR?: number; hairLen?: number; headS?: number; socks?: string; glasses?: boolean; clip?: string; backpack?: string;
-  band?: string; holdR?: "flashlight" | "phone" | "tape" | "keys" | "bag" | "spatula" | "notebook" | "pencil"; phones?: string;
+  band?: string; holdR?: "flashlight" | "phone" | "tape" | "keys" | "bag" | "spatula" | "notebook" | "pencil" | "book"; phones?: string;
 };
 /* ─── pose ─── */
 export type Pose = {
@@ -232,6 +232,8 @@ const HoldProp: React.FC<{ kind: NonNullable<Look["holdR"]> }> = ({ kind }) => {
   if (kind === "spatula") return <group position={[0, -0.33, 0.05]} rotation={[Math.PI / 2 - 0.3, 0, 0]}><Box p={[0, 0.06, 0]} s={[0.018, 0.16, 0.012]} c="#3A2A1E" /><Box p={[0, 0.17, 0]} s={[0.07, 0.07, 0.004]} c="#C9CDD2" /></group>;
   if (kind === "tape") return <group position={[0, -0.3, 0.05]}><Box s={[0.13, 0.085, 0.022]} c="#1E1E22" /><Box p={[0, 0.005, 0.012]} s={[0.1, 0.04, 0.004]} c="#E9E4D6" />{[-1, 1].map((sd) => <Disc key={sd} p={[sd * 0.025, 0.005, 0.0145]} r={0.011} c="#3A3A40" />)}</group>;
   if (kind === "keys") return <group position={[0, -0.33, 0.03]}><mesh rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.025, 0.005, 6, 18]} /><Mat c="#C9CDD2" r={0.3} /></mesh>{[-0.02, 0.0, 0.02].map((x, i) => <Box key={i} p={[x, -0.045, 0]} s={[0.012, 0.06, 0.004]} c={i === 1 ? "#D9B24A" : "#B8BEC4"} rot={[0, 0, x * 8]} />)}</group>;
+  /* the "เปลี่ยนอนาคต" book (EP2 look): black cover, red title block */
+  if (kind === "book") return <group position={[0, -0.33, 0.06]} rotation={[-0.4, 0, 0]}><Box s={[0.15, 0.21, 0.025]} c="#121317" /><Box p={[0, 0.03, 0.014]} s={[0.1, 0.04, 0.002]} c="#C8323A" /><Box p={[0, 0.03, -0.014]} s={[0.1, 0.04, 0.002]} c="#C8323A" /></group>;
   /* EP3: small notebook (blue cover, cream pages) held flat-ish in the fist */
   if (kind === "notebook") return <group position={[0, -0.33, 0.06]} rotation={[-0.4, 0, 0]}><Box s={[0.16, 0.21, 0.018]} c="#2F4E8C" /><Box p={[0, 0, 0.01]} s={[0.15, 0.2, 0.004]} c="#F1ECDD" /></group>;
   if (kind === "pencil") return <group position={[0, -0.3, 0.04]} rotation={[Math.PI / 2 - 0.5, 0, 0]}><Box s={[0.009, 0.15, 0.009]} c="#E8B83A" /><Box p={[0, 0.08, 0]} s={[0.006, 0.015, 0.006]} c="#2A2622" /></group>;

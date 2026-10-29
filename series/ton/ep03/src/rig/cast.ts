@@ -43,7 +43,7 @@ export const TON_HOME_PHONE: Look = { ...TON_HOME, holdR: "phone" };
 
 /** EP3 */
 export const TON_PENCIL: Look = { ...TON, holdR: "pencil" };
-export const PAKIN_NB: Look = { ...PAKIN, holdR: "notebook" };
+export const PAKIN_NB: Look = { ...PAKIN, holdR: "book" };  // EP3 user fix: Pakin snatches the "เปลี่ยนอนาคต" book (EP2 look)
 export const TON_NB: Look = { ...TON_HOME, holdR: "notebook" };
 /** students filming with their phones */
 export const KID1_PH: Look = { ...KID1, holdR: "phone" };

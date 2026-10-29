@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Sequence, useCurrentFrame } from "remotion";
 import { loadFont as loadMali } from "@remotion/google-fonts/Mali";
 import { Cam, Glow, Shot, type V3 } from "./kit/three";
 import { Click, CREAM, DUR, FPS, FadeOut, Grain, LINE, RED, SANS, Vig, fr, io, useSpr } from "./kit/ui";
@@ -14,7 +14,7 @@ import MOUTH from "./mouth.json";
 
 const HAND = loadMali("normal", { weights: ["500", "600"], subsets: ["thai", "latin"] }).fontFamily;
 
-/** EP3 — ขายดี แต่ทำไมไม่รวย? (~88 s). Story + dialogue: the user's MASTER PROMPT; lines 11–12 = the CK book reveal (user asked).
+/** EP3 — ขายดี แต่ทำไมไม่รวย? (~88 s). Story + dialogue: the user's MASTER PROMPT. CK book reveal removed (user 2026-10-29: reveal later, once Ton has succeeded).
  *  Rules: series/ton/RULES.md (hook in 3 s, reaction shots, stingers, ending: hard cut to black, stranger never shown clearly). */
 
 /* ─── timing helpers ─── */
@@ -47,6 +47,8 @@ const SIT_Y = (SIT.y ?? 0) * SLIM.leg * TON.height;
 const HTS = face(TON) + SIT_Y; // seated Ton head height
 const HP = face(PAKIN), HA = face(PALA), HB = face(PALB);
 const NB_DESK: V3 = [TON_DESK[0] + 0.02, TON_DESK[1] + 0.012, TON_DESK[2] + 0.03];
+/** the grab: Pakin stands right beside Ton's desk; k 0..1 = arm reaches down to the book, 1..2 = pulls back holding it */
+const PAK_G: V3 = [TON_DESK[0] + 0.55, 0, TON_DESK[2] - 0.05];
 type ClassAct = { ton?: "write" | "look" | "talk"; pak?: "grab" | "hold" | "taunt" | "drop"; pala?: "laugh" | "talk"; mt?: number; mp?: number; ma?: number; nb?: "desk" | "grab" | "gone" | "drop"; k?: number };
 const ClassScene: React.FC<ClassAct> = ({ ton = "look", pak = "hold", pala = "laugh", mt = 0, mp = 0, ma = 0, nb = "gone", k = 0 }) => {
   const f = useCurrentFrame();
@@ -56,23 +58,25 @@ const ClassScene: React.FC<ClassAct> = ({ ton = "look", pak = "hold", pala = "la
     : pak === "drop" ? { ...blendPose(HOLD_NB, { shR: [-0.6, 0.1, -0.3], elR: -0.2 }, k), head: [0.2, 0, 0], mouth: mp, browUp: -0.4, blink: blink(f, 3) }
     : { ...HOLD_NB, head: [0.1, 0, 0], mouth: mp, browUp: pak === "taunt" ? 0.6 : -0.2, blink: blink(f, 3) };
   const palaPose: Pose = pala === "laugh" ? LAUGH(f, 1) : { ...LAUGH(f, 1), mouth: ma, blink: blink(f, 5) };
-  const nbPos: V3 = nb === "desk" ? NB_DESK : nb === "grab" ? lerp3(NB_DESK, [PAK_C[0] - 0.3, 1.0, PAK_C[2] - 0.05], k) : nb === "drop" ? lerp3([PAK_C[0] - 0.25, 1.0, PAK_C[2]], NB_DESK, k) : [0, -5, 0];
+  const nbPos: V3 = nb === "desk" || (nb === "grab" && k < 1) ? NB_DESK : nb === "grab" ? [0, -5, 0] : nb === "drop" ? lerp3([PAK_C[0] - 0.25, 1.0, PAK_C[2]], NB_DESK, k) : [0, -5, 0];
   return (
     <Classroom>
       <Char L={nb === "desk" || ton === "write" ? TON_PENCIL : TON} p={TON_SEAT} ry={Math.PI} pose={tonPose} seed={1} />
-      <Char L={pak === "grab" ? PAKIN : PAKIN_NB} p={PAK_C} ry={yawTo(PAK_C, TON_SEAT)} pose={pak === "drop" && k > 0.5 ? { ...pakPose, holdOff: true } : pakPose} seed={3} />
+      {pak === "grab"
+        ? <Char L={k >= 1 ? PAKIN_NB : PAKIN} p={PAK_G} ry={yawTo(PAK_G, NB_DESK)} pose={k <= 1 ? { spine: [0.55 * k, 0, 0], shR: [-1.15 * k, 0, -0.05], elR: -0.15, head: [0.3, 0, 0], browUp: -0.3, blink: blink(f, 3), holdOff: true } : { spine: [0.55 - 0.35 * (k - 1), 0, 0], shR: [-1.15 + 0.2 * (k - 1), 0, -0.05], elR: -0.15 - 1.0 * (k - 1), head: [0.3 - 0.3 * (k - 1), 0, 0], browUp: 0.4, mouth: 0.2, blink: blink(f, 3) }} seed={3} />
+        : <Char L={PAKIN_NB} p={PAK_C} ry={yawTo(PAK_C, TON_SEAT)} pose={pak === "drop" && k > 0.5 ? { ...pakPose, holdOff: true } : pakPose} seed={3} />}
       <Char L={PALA} p={PA_C} ry={yawTo(PA_C, TON_SEAT)} pose={palaPose} seed={5} />
       <Char L={PALB} p={PB_C} ry={yawTo(PB_C, TON_SEAT)} pose={LAUGH(f, 2.3)} seed={6} />
-      {/* the notebook (on the desk / flying) */}
-      <group position={nbPos} rotation={[-Math.PI / 2 + (nb === "grab" ? k * 1.2 : 0), 0, nb === "drop" ? (1 - k) * 2 : 0.15]}>
-        <mesh><boxGeometry args={[0.16, 0.21, 0.012]} /><meshStandardMaterial color="#2F4E8C" /></mesh>
-        <mesh position={[0, 0, 0.007]}><boxGeometry args={[0.15, 0.2, 0.003]} /><meshStandardMaterial color="#F1ECDD" /></mesh>
+      {/* the "เปลี่ยนอนาคต" book (EP2 look: black cover, red title block) on the desk / flying */}
+      <group position={nbPos} rotation={[-Math.PI / 2, 0, nb === "drop" ? (1 - k) * 2 : 0.15]}>
+        <mesh><boxGeometry args={[0.15, 0.21, 0.025]} /><meshStandardMaterial color="#121317" /></mesh>
+        <mesh position={[0, 0.03, 0.014]}><boxGeometry args={[0.1, 0.04, 0.002]} /><meshStandardMaterial color="#C8323A" /></mesh>
       </group>
     </Classroom>
   );
 };
 /** XCU: pencil on numbers, then a hand snatches the notebook */
-const SDeskXCU = () => { const f = useCurrentFrame(); const k = io(f, 7, 15, 0, 1); return <Shot><ClassScene ton="write" pak="grab" nb={f < 7 ? "desk" : "grab"} k={f < 7 ? 0 : k} /><Cam p={[TON_DESK[0] - 0.1, 1.32, TON_DESK[2] - 0.42]} t={[NB_DESK[0], 0.74, NB_DESK[2] + 0.02]} fov={38} drift={0.4} /></Shot>; };
+const SDeskXCU = () => { const f = useCurrentFrame(); const k = f < 16 ? io(f, 4, 15, 0, 1) : 1 + io(f, 16, 24, 0, 1); return <Shot><ClassScene ton="write" pak="grab" nb="grab" k={k} /><Cam p={[TON_DESK[0] - 0.75, 1.15, TON_DESK[2] - 0.35]} t={[NB_DESK[0] + 0.25, 0.95, NB_DESK[2]]} fov={46} drift={0.4} /></Shot>; };
 const SPakinSmirk = () => { const f = useCurrentFrame(); const d = yawTo(PAK_C, TON_SEAT); return <Shot><ClassScene pak="taunt" mp={useMouth("pakin")} /><Cam p={[PAK_C[0] + Math.sin(d) * 1.5, HP - 0.18, PAK_C[2] + Math.cos(d) * 1.5 - f * 0.002]} t={[PAK_C[0], HP - 0.04, PAK_C[2]]} fov={31} drift={0.5} /></Shot>; };
 const SPalA = () => { const f = useCurrentFrame(); const d = yawTo(PA_C, TON_SEAT); return <Shot><ClassScene pala="talk" ma={useMouth("pala")} /><Cam p={[PA_C[0] + Math.sin(d) * 1.6 - 0.2, HA - 0.05, PA_C[2] + Math.cos(d) * 1.6 - f * 0.002]} t={[PA_C[0], HA - 0.06, PA_C[2]]} fov={32} drift={0.5} /></Shot>; };
 const STonEyes = () => { const f = useCurrentFrame(); return <Shot><ClassScene ton="look" /><Cam p={[TON_SEAT[0] - 0.12, HTS + 0.02, TON_SEAT[2] - 1.3 + f * 0.006]} t={[TON_SEAT[0], HTS - 0.0, TON_SEAT[2]]} fov={26} drift={0.2} /></Shot>; };
@@ -189,7 +193,6 @@ const StallScene: React.FC<StallAct> = ({ dusk, ton = "sit", dad = "fry", man = 
 const SStallEnter = () => { const f = useCurrentFrame(); return <Shot><StallScene dusk ton="walk" dad="fry" /><Cam p={[2.4, 1.45, 3.1 - f * 0.004]} t={[2.3 - f * 0.006, 1.05, -0.4]} fov={42} drift={0.4} /></Shot>; };
 const SDadSweat = () => { const f = useCurrentFrame(); return <Shot><StallScene dusk ton="watch" dad="wipe" /><pointLight position={[DAD3[0] + 0.4, 1.6, DAD3[2] + 0.9]} intensity={0.9} distance={2} color="#FFC890" /><Cam p={[DAD3[0] + 0.55, HD + 0.05, DAD3[2] + 1.75 - f * 0.003]} t={[DAD3[0], HD - 0.05, DAD3[2]]} fov={31} drift={0.4} /></Shot>; };
 const STonWatch = () => { const f = useCurrentFrame(); const d = yawTo([1.85, 0, -0.55], DAD3); const P: V3 = [1.85, 0, -0.55]; const H = face(TON_HOME); return <Shot><StallScene dusk ton="watch" dad="fry" /><Cam p={[P[0] + Math.sin(d) * 1.6 + 0.3, H + 0.03, P[2] + Math.cos(d) * 1.6 + 0.5 - f * 0.003]} t={[P[0], H - 0.06, P[2]]} fov={30} drift={0.3} /></Shot>; };
-const STonBook = () => { const f = useCurrentFrame(); return <Shot><StallScene dusk ton="book" dad="fry" mt={0} /><Cam p={[TON_T[0] - 0.15, HTT + 0.05, TON_T[2] + 1.35 - Math.min(f, 90) * 0.004]} t={[TON_T[0], HTT - 0.25, TON_T[2] + 0.1]} fov={38} drift={0.3} /></Shot>; };
 const SDadAsk = () => { const f = useCurrentFrame(); return <Shot><StallScene dusk ton="sit" dad="ask" md={useMouth("dad")} /><Cam p={[DAD3[0] + 1.25, HD + 0.2, DAD3[2] + 1.4 - f * 0.002]} t={[DAD3[0], HD - 0.02, DAD3[2]]} fov={31} drift={0.4} /></Shot>; };
 const STonReply = () => { const f = useCurrentFrame(); return <Shot><StallScene dusk ton="sit" dad="ask" mt={useMouth("ton")} /><Cam p={[TON_T[0] - 0.6, HTT + 0.06, TON_T[2] + 1.5 - f * 0.002]} t={[TON_T[0], HTT - 0.05, TON_T[2]]} fov={31} drift={0.4} /></Shot>; };
 const STonAskNight = () => { const f = useCurrentFrame(); return <Shot><StallScene ton="talk" dad="ask" mt={useMouth("ton")} /><Cam p={[TON_T[0] - 0.55, HTT + 0.08, TON_T[2] + 1.45 - f * 0.002]} t={[TON_T[0], HTT - 0.05, TON_T[2]]} fov={31} drift={0.4} /></Shot>; };
@@ -210,22 +213,6 @@ const STonFinal: React.FC<{ fastAt: number }> = ({ fastAt }) => { const f = useC
 /* ═════════ DOM inserts ═════════ */
 /** whip-pan in: horizontal smear for the first frames of a cut */
 const WhipIn: React.FC<{ children: React.ReactNode }> = ({ children }) => { const f = useCurrentFrame(); const k = Math.max(0, 1 - f / 5); return <AbsoluteFill style={{ filter: k > 0 ? `blur(${k * 14}px)` : undefined, transform: `translateX(${k * -220}px)` }}>{children}</AbsoluteFill>; };
-/** the wrapped cover slides off: "เปลี่ยนอนาคต" was Ton's own wrap, the real book appears */
-const BookSwap: React.FC = () => {
-  const f = useCurrentFrame(); const slide = io(f, 16, 40, 0, 1); const s = useSpr(40, 14);
-  return (
-    <AbsoluteFill style={{ background: "#07080C", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ position: "relative", width: 680, height: 963, marginTop: -260, transform: `scale(${0.96 + 0.04 * s + f * 0.0004})` }}>
-        <Img src={staticFile("book-cover.jpg")} style={{ position: "absolute", inset: 0, width: 680, height: 963, borderRadius: 10, boxShadow: `0 30px 90px rgba(255,90,70,${0.12 + 0.2 * s})` }} />
-        <div style={{ position: "absolute", inset: -8, borderRadius: 14, background: "linear-gradient(160deg,#1B1D22,#0C0D10)", boxShadow: "inset 0 0 0 3px #2A2D34", display: "flex", alignItems: "center", justifyContent: "center", transform: `translateY(${-slide * 1100}px) rotate(${-slide * 6}deg)` }}>
-          <div style={{ color: RED, fontFamily: SANS, fontWeight: 700, fontSize: 120, lineHeight: 1.1, textAlign: "center" }}>เปลี่ยน<br />อนาคต</div>
-        </div>
-      </div>
-      <AbsoluteFill style={{ background: "#fff", opacity: Math.max(0, 1 - Math.abs(f - 40) / 4) * 0.5 }} />
-      <Click at={40} v={0.3} />
-    </AbsoluteFill>
-  );
-};
 const RCPT: React.CSSProperties = { position: "absolute", width: 300, background: "#FBFAF4", padding: "26px 26px 30px", fontFamily: SANS, color: "#2A2622", boxShadow: "0 14px 34px rgba(0,0,0,0.45)", fontSize: 30, lineHeight: 1.5 };
 const Receipt: React.FC<{ x: number; y: number; r: number; item: string; qty: string; total: string; mark?: number }> = ({ x, y, r, item, qty, total, mark = 0 }) => (
   <div style={{ ...RCPT, left: x, top: y, transform: `rotate(${r}deg)` }}>
@@ -343,11 +330,11 @@ const NextCard: React.FC = () => {
 
 /* ═════════ the edit ═════════ */
 type Cut = { a: number; b: number; el: React.ReactNode };
-const END = E(23);
+const END = E(21);
 export const CUTS: Cut[] = [
   /* scene 1: classroom — the notebook is snatched */
-  { a: 0, b: 0.9, el: <SDeskXCU /> },
-  { a: 0.9, b: E(1) + 0.2, el: <WhipIn><SPakinSmirk /></WhipIn> },
+  { a: 0, b: 1.0, el: <SDeskXCU /> },
+  { a: 1.0, b: E(1) + 0.2, el: <WhipIn><SPakinSmirk /></WhipIn> },
   { a: E(1) + 0.2, b: E(2) + 0.6, el: <SPalA /> },
   { a: E(2) + 0.6, b: T(3) - 0.05, el: <STonEyes /> },
   { a: T(3) - 0.05, b: E(3) + 0.3, el: <STonAsk /> },
@@ -364,39 +351,37 @@ export const CUTS: Cut[] = [
   /* scene 3: the stall at sunset — the choice + the book */
   { a: T(9) - 0.1, b: mid(10), el: <SStallEnter /> },
   { a: mid(10), b: E(10) + 0.3, el: <SDadSweat /> },
-  { a: E(10) + 0.3, b: T(11) + 0.2, el: <STonWatch /> },
-  { a: T(11) + 0.2, b: E(11) + 0.5, el: <BookSwap /> },
-  { a: E(11) + 0.5, b: E(12) + 0.7, el: <STonBook /> },
-  { a: E(12) + 0.7, b: E(13) + 0.15, el: <SDadAsk /> },
-  { a: E(13) + 0.15, b: E(14) + 0.5, el: <STonReply /> },
+  { a: E(10) + 0.3, b: E(10) + 1.4, el: <STonWatch /> },
+  { a: E(10) + 1.4, b: E(11) + 0.15, el: <SDadAsk /> },
+  { a: E(11) + 0.15, b: E(12) + 0.5, el: <STonReply /> },
   /* scene 4: night — income is not profit */
-  { a: E(14) + 0.5, b: T(15) + 0.3, el: <TableTop /> },
-  { a: T(15) + 0.3, b: E(15) + 0.25, el: <STonAskNight /> },
-  { a: E(15) + 0.25, b: E(16) + 0.3, el: <SDadExplain /> },
-  { a: E(16) + 0.3, b: mid(17), el: <LedgerWrite /> },
-  { a: mid(17), b: E(17) + 0.2, el: <STonWrite /> },
-  { a: E(17) + 0.2, b: E(17) + 1.8, el: <SlamCard text="รายรับ ≠ กำไร" sub="ต้องหักต้นทุนทุกบาทก่อน" /> },
+  { a: E(12) + 0.5, b: T(13) + 0.3, el: <TableTop /> },
+  { a: T(13) + 0.3, b: E(13) + 0.25, el: <STonAskNight /> },
+  { a: E(13) + 0.25, b: E(14) + 0.3, el: <SDadExplain /> },
+  { a: E(14) + 0.3, b: mid(15), el: <LedgerWrite /> },
+  { a: mid(15), b: E(15) + 0.2, el: <STonWrite /> },
+  { a: E(15) + 0.2, b: E(15) + 1.8, el: <SlamCard text="รายรับ ≠ กำไร" sub="ต้องหักต้นทุนทุกบาทก่อน" /> },
   /* scene 5: late night — the numbers don't match */
-  { a: E(17) + 1.8, b: E(17) + 2.6, el: <SLateWide /> },
-  { a: E(17) + 2.6, b: E(18) + 0.3, el: <Compare /> },
-  { a: E(18) + 0.3, b: T(19) + 0.1, el: <STonEyesLate /> },
-  { a: T(19) + 0.1, b: mid(19), el: <Compare flip /> },
-  { a: mid(19), b: E(19) + 0.5, el: <STonEyesLate m /> },
+  { a: E(15) + 1.8, b: E(15) + 2.6, el: <SLateWide /> },
+  { a: E(15) + 2.6, b: E(16) + 0.3, el: <Compare /> },
+  { a: E(16) + 0.3, b: T(17) + 0.1, el: <STonEyesLate /> },
+  { a: T(17) + 0.1, b: mid(17), el: <Compare flip /> },
+  { a: mid(17), b: E(17) + 0.5, el: <STonEyesLate m /> },
   /* scene 6: the stranger */
-  { a: E(19) + 0.5, b: E(19) + 1.5, el: <STonPack /> },
-  { a: E(19) + 1.5, b: E(19) + 2.6, el: <SAcross /> },
-  { a: E(19) + 2.6, b: T(20) - 0.05, el: <><SStrangerBack /><Letterbox /><ShutterFlash at={8} /></> },
-  { a: T(20) - 0.05, b: E(20) + 0.2, el: <STonSus /> },
-  { a: E(20) + 0.2, b: E(21) + 0.4, el: <STonTurn /> },
-  { a: E(21) + 0.4, b: E(21) + 1.4, el: <SAcross gone /> },
-  { a: E(21) + 1.4, b: E(22) + 0.2, el: <STonFinal fastAt={99} /> },
-  { a: E(22) + 0.2, b: T(23) + 2.0, el: <SAcross gone /> },
-  { a: T(23) + 2.0, b: END + 0.45, el: <STonFinal fastAt={END - (T(23) + 2.0) - 1.0} /> },
+  { a: E(17) + 0.5, b: E(17) + 1.5, el: <STonPack /> },
+  { a: E(17) + 1.5, b: E(17) + 2.6, el: <SAcross /> },
+  { a: E(17) + 2.6, b: T(18) - 0.05, el: <><SStrangerBack /><Letterbox /><ShutterFlash at={8} /></> },
+  { a: T(18) - 0.05, b: E(18) + 0.2, el: <STonSus /> },
+  { a: E(18) + 0.2, b: E(19) + 0.4, el: <STonTurn /> },
+  { a: E(19) + 0.4, b: E(19) + 1.4, el: <SAcross gone /> },
+  { a: E(19) + 1.4, b: E(20) + 0.2, el: <STonFinal fastAt={99} /> },
+  { a: E(20) + 0.2, b: T(21) + 2.0, el: <SAcross gone /> },
+  { a: T(21) + 2.0, b: END + 0.45, el: <STonFinal fastAt={END - (T(21) + 2.0) - 1.0} /> },
   /* ending: hard cut to black, the question, EP4 */
   { a: END + 0.45, b: END + 2.8, el: <QuestionCard /> },
   { a: END + 2.8, b: DUR / FPS, el: <NextCard /> },
 ];
-export const HERO_S = E(19);
+export const HERO_S = E(17);
 
 const Cuts: React.FC = () => (
   <>
