@@ -56,7 +56,7 @@ const NightStreet: React.FC<NightAct> = ({ ton = "wipe", man = "none", mt = 0, k
   const manRy = man === "walk" ? yawTo(ACROSS, ALLEY) : yawTo(ACROSS, [0, 0, 0]);
   return (
     <Stall>
-      <pointLight position={[0.2, 3.2, 3.6]} intensity={1.8} distance={7} color="#8FA6E0" />
+      <pointLight position={[0.2, 3.2, 3.6]} intensity={3.6} distance={8} color="#8FA6E0" /><pointLight position={[-1.0, 2.6, 6.2]} intensity={2.4} distance={5} color="#9FB2E8" /><ambientLight intensity={0.25} color="#8FA0C8" />
       <Char L={TON_HOME} p={tp} ry={ry} pose={pose} seed={1} />
       {man !== "none" ? <>
         <Char L={STRANGER_W} p={manP} ry={manRy} pose={man === "walk" ? { ...walkPose(k * 2.4 / 1.2 * Math.PI * 2), blink: 1 } : { head: [-0.1, 0, 0], blink: 1 }} seed={11} />
@@ -118,9 +118,8 @@ const SOts = () => { const f = useCurrentFrame(); return <Shot><ClassScene ton="
 const SPalB = () => { const f = useCurrentFrame(); const d = yawTo(PB_C, TON_SEAT); return <Shot><ClassScene ton="grip" pak="lean" pb="talk" mb={useMouth("palb")} /><Cam p={[PB_C[0] + Math.sin(d) * 1.5 + 0.2, HB - 0.03, PB_C[2] + Math.cos(d) * 1.5 + f * 0.002]} t={[PB_C[0], HB - 0.06, PB_C[2]]} fov={32} drift={0.5} /></Shot>; };
 const SPakSit: React.FC<{ sitBy?: number }> = ({ sitBy = 18 }) => { const f = useCurrentFrame(); const k = io(f, 0, sitBy, 0, 1); const H = face(PAKIN) + SIT_Y * Math.min(1, k); return <Shot><ClassScene ton="grip" pak={k < 1 ? "sit" : "smirk"} k={k} mp={useMouth("pakin")} /><Cam p={[PAK_SIT[0] - 0.95, H + 0.12, PAK_SIT[2] - 0.95 + f * 0.003]} t={[PAK_SIT[0], H - 0.1, PAK_SIT[2]]} fov={38} drift={0.5} /></Shot>; };
 const SKids = () => { const f = useCurrentFrame(); return <Shot><ClassScene ton="grip" pak="smirk" /><Cam p={[0.1, 1.6, -2.3 + f * 0.004]} t={[0.9, 0.9, 1.3]} fov={42} drift={0.6} /></Shot>; };
-const SGrip = () => { const f = useCurrentFrame(); return <Shot><ClassScene ton="grip" pak="smirk" /><Cam p={[TON_SEAT[0] + 0.1, HTS + 0.05, TON_SEAT[2] - 1.0 + f * 0.004]} t={[TON_SEAT[0], HTS - 0.05, TON_SEAT[2]]} fov={26} drift={0.2} /></Shot>; };
 const STonAnswer = () => { const f = useCurrentFrame(); const d = yawTo(TON_SEAT, PAK_SIT); return <Shot><ClassScene ton="talk" pak="smirk" mt={useMouth("ton")} /><Cam p={[TON_SEAT[0] + Math.sin(d) * 1.2 - 0.35, HTS + 0.05, TON_SEAT[2] + Math.cos(d) * 1.2 - 0.6 + f * 0.002]} t={[TON_SEAT[0], HTS - 0.02, TON_SEAT[2]]} fov={32} drift={0.3} /></Shot>; };
-const SPakGlare = () => { const f = useCurrentFrame(); const H = face(PAKIN) + SIT_Y; return <Shot><ClassScene ton="talk" pak="glare" /><Cam p={[0.61, HTS + 0.12, 1.58]} t={[PAK_SIT[0], H - 0.04 - f * 0.0004, PAK_SIT[2]]} fov={36 - f * 0.08} drift={0.15} /></Shot>; };
+const SPakGlare = () => { const f = useCurrentFrame(); const H = face(PAKIN) + SIT_Y; return <Shot><ClassScene ton="talk" pak="glare" /><Cam p={[0.62, HTS + 0.15, 1.78]} t={[PAK_SIT[0], H - 0.04 - f * 0.0004, PAK_SIT[2]]} fov={36 - f * 0.08} drift={0.15} /></Shot>; };
 
 /* ═════════ 3 + 5. the stall: checking everything / the message ═════════ */
 const DAD3: V3 = [WOK[0], 0, -0.62];
@@ -240,11 +239,11 @@ const BackScene: React.FC<BackAct> = ({ ton = "walk", give = 0, pak = "talk", mp
   );
 };
 const HTN = face(TON), HPN = face(PAKIN);
-const SBackWalk = () => { const f = useCurrentFrame(); const k = io(f, 0, 60, 0, 1); return <Shot><BackScene ton="walk" k={k} /><pointLight position={[WALK0[0] + 3.2 * k, 2.2, -4.0]} intensity={0.8} distance={2.5} color="#8FA6E0" /><Cam p={[WALK0[0] + 3.0 * k - 1.0, 1.45, -3.4]} t={[WALK0[0] + 3.4 * k, 1.05, -4.6]} fov={42} drift={0.5} /></Shot>; };
+const SBackWalk = () => { const f = useCurrentFrame(); const k = io(f, 0, 44, 0, 1); return <Shot><BackScene ton="walk" k={k} /><pointLight position={[WALK0[0] + 3.2 * k, 2.2, -4.0]} intensity={0.8} distance={2.5} color="#8FA6E0" /><Cam p={[WALK0[0] + 3.0 * k - 1.0, 1.45, -3.4]} t={[WALK0[0] + 3.4 * k, 1.05, -4.6]} fov={42} drift={0.5} /></Shot>; };
 const STonStops = () => { const f = useCurrentFrame(); return <Shot><BackScene ton="stop" /><pointLight position={[HIDE[0] + 0.6, HTN + 0.2, HIDE[2] + 0.5]} intensity={0.6} distance={1.5} color="#8FA6E0" /><Cam p={[HIDE[0] + 0.85, HTN + 0.05, HIDE[2] + 0.5 - f * 0.002]} t={[HIDE[0], HTN - 0.05, HIDE[2]]} fov={30} drift={0.3} /></Shot>; };
 /** distant two-shot from behind Ton's pillar */
 const STwoShot: React.FC<{ give?: [number, number] }> = ({ give }) => { const f = useCurrentFrame(); const g = give ? io(f, give[0], give[1], 0, 1) : 0; return <Shot><BackScene ton="peek" give={g} mp={useMouth("pakin")} /><Cam p={[HIDE[0] + 0.1, HTN + 0.08, HIDE[2] + 0.35]} t={[(PAK_N[0] + MAN_N[0]) / 2, 1.25, (PAK_N[2] + MAN_N[2]) / 2]} fov={30} drift={0.3} /></Shot>; };
-const SEnvelope = () => { const f = useCurrentFrame(); const g = io(f, 2, 22, 0, 1); return <Shot><BackScene ton="peek" give={g} /><Cam p={[(PAK_N[0] + MAN_N[0]) / 2 + 0.3, 1.5, PAK_N[2] + 2.0 - f * 0.003]} t={[(PAK_N[0] + MAN_N[0]) / 2, 1.0, (PAK_N[2] + MAN_N[2]) / 2]} fov={30} drift={0.3} /></Shot>; };
+const SEnvelope = () => { const f = useCurrentFrame(); const g = io(f, 1, 16, 0, 1); return <Shot><BackScene ton="peek" give={g} /><Cam p={[(PAK_N[0] + MAN_N[0]) / 2 + 0.3, 1.5, PAK_N[2] + 2.0 - f * 0.003]} t={[(PAK_N[0] + MAN_N[0]) / 2, 1.0, (PAK_N[2] + MAN_N[2]) / 2]} fov={30} drift={0.3} /></Shot>; };
 /** the stranger speaks: we only see his back, Pakin's face past his shoulder */
 const SManBack = () => { const f = useCurrentFrame(); return <Shot><BackScene ton="peek" give={0.3} /><Cam p={[MAN_N[0] + 0.45, 1.6, MAN_N[2] - 0.55 + f * 0.001]} t={[PAK_N[0], HPN - 0.05, PAK_N[2]]} fov={34} drift={0.3} /></Shot>; };
 const STonEyes = () => { const f = useCurrentFrame(); return <Shot><BackScene ton="peek" give={1} /><pointLight position={[HIDE[0] + 0.6, HTN, HIDE[2] - 0.4]} intensity={0.6} distance={1.3} color="#FFB45A" /><Cam p={[HIDE[0] + 1.0 - f * 0.003, HTN + 0.02, HIDE[2] + 0.03]} t={[HIDE[0], HTN - 0.02, HIDE[2]]} fov={30} drift={0.2} /></Shot>; };
@@ -358,19 +357,18 @@ type Cut = { a: number; b: number; el: React.ReactNode };
 const END = E(20);
 export const CUTS: Cut[] = [
   /* 1. the stranger is back (hook) */
-  { a: 0, b: 0.9, el: <STube /> },
-  { a: 0.9, b: 2.0, el: <SWipeNotice /> },
-  { a: 2.0, b: 4.0, el: <><SManGoes walkFrom={14} /><Letterbox /></> },
-  { a: 4.0, b: 4.9, el: <SRun /> },
-  { a: 4.9, b: T(1) + 0.1, el: <SEmptyAlley /> },
+  { a: 0, b: 0.8, el: <STube /> },
+  { a: 0.8, b: 1.8, el: <SWipeNotice /> },
+  { a: 1.8, b: 3.4, el: <><SManGoes walkFrom={10} /><Letterbox /></> },
+  { a: 3.4, b: 4.1, el: <SRun /> },
+  { a: 4.1, b: T(1) + 0.1, el: <SEmptyAlley /> },
   { a: T(1) + 0.1, b: E(1) + 0.3, el: <STonRoad /> },
   { a: E(1) + 0.3, b: E(2) + 0.4, el: <STonBackWide /> },
   /* 2. classroom */
   { a: E(2) + 0.4, b: E(3) + 0.2, el: <SOts /> },
   { a: E(3) + 0.2, b: E(4) + 0.25, el: <SPalB /> },
   { a: E(4) + 0.25, b: E(5) + 0.2, el: <SPakSit /> },
-  { a: E(5) + 0.2, b: E(5) + 1.5, el: <SKids /> },
-  { a: E(5) + 1.5, b: T(6) - 0.05, el: <SGrip /> },
+  { a: E(5) + 0.2, b: T(6) - 0.05, el: <SKids /> },
   { a: T(6) - 0.05, b: E(6) + 0.3, el: <STonAnswer /> },
   { a: E(6) + 0.3, b: E(6) + 1.6, el: <SPakGlare /> },
   /* 3. checking everything */
@@ -383,27 +381,27 @@ export const CUTS: Cut[] = [
   { a: T(10) + 0.2, b: E(10) + 0.1, el: <SSupPoint /> },
   { a: E(10) + 0.1, b: T(11) - 0.1, el: <DatesCheck /> },
   { a: T(11) - 0.1, b: E(11) + 0.2, el: <STonMarket act="think" /> },
-  { a: E(11) + 0.2, b: E(11) + 1.8, el: <SlamCard text={"อย่าเพิ่งกล่าวหา\nตรวจหลักฐานก่อน"} sub="แยกข้อเท็จจริง ออกจากการเดา" /> },
-  { a: E(11) + 1.8, b: E(12) + 0.15, el: <SSupPoint ask /> },
+  { a: E(11) + 0.15, b: E(11) + 1.65, el: <SlamCard text={"อย่าเพิ่งกล่าวหา\nตรวจหลักฐานก่อน"} sub="แยกข้อเท็จจริง ออกจากการเดา" /> },
+  { a: E(11) + 1.65, b: E(12) + 0.15, el: <SSupPoint ask /> },
   { a: E(12) + 0.15, b: E(13) + 0.2, el: <STonMarket act="talk" /> },
   { a: E(13) + 0.2, b: E(13) + 1.3, el: <SSupStare /> },
   /* 5. someone knows */
   { a: E(13) + 1.3, b: E(14) + 0.2, el: <SDadNight /> },
   { a: E(14) + 0.2, b: E(15) + 0.3, el: <STonExplain night /> },
-  { a: E(15) + 0.3, b: E(15) + 1.0, el: <SPhoneBuzz /> },
-  { a: E(15) + 1.0, b: E(15) + 2.8, el: <PhoneMsg /> },
-  { a: E(15) + 2.8, b: E(15) + 3.7, el: <STonRead /> },
-  { a: E(15) + 3.7, b: T(16) - 0.05, el: <SDoorway /> },
+  { a: E(15) + 0.2, b: E(15) + 0.8, el: <SPhoneBuzz /> },
+  { a: E(15) + 0.8, b: E(15) + 2.1, el: <PhoneMsg /> },
+  { a: E(15) + 2.1, b: E(15) + 2.7, el: <STonRead /> },
+  { a: E(15) + 2.7, b: T(16) - 0.05, el: <SDoorway /> },
   { a: T(16) - 0.05, b: E(16) + 0.2, el: <SDadNight worry /> },
   { a: E(16) + 0.2, b: E(17) + 0.5, el: <STonFlip /> },
   /* 6. Pakin and the stranger */
-  { a: E(17) + 0.5, b: E(17) + 2.5, el: <SBackWalk /> },
-  { a: E(17) + 2.5, b: T(18) - 0.6, el: <STonStops /> },
+  { a: E(17) + 0.4, b: E(17) + 1.9, el: <SBackWalk /> },
+  { a: E(17) + 1.9, b: T(18) - 0.4, el: <STonStops /> },
   { a: T(18) - 0.6, b: E(18) + 0.2, el: <STwoShot /> },
   { a: E(18) + 0.2, b: E(19) + 0.1, el: <SManBack /> },
-  { a: E(19) + 0.1, b: E(19) + 1.1, el: <SEnvelope /> },
-  { a: E(19) + 1.1, b: E(19) + 1.9, el: <STonEyes /> },
-  { a: E(19) + 1.9, b: T(20) + 0.2, el: <SPakLooks /> },
+  { a: E(19) + 0.1, b: E(19) + 0.8, el: <SEnvelope /> },
+  { a: E(19) + 0.8, b: E(19) + 1.3, el: <STonEyes /> },
+  { a: E(19) + 1.3, b: T(20) + 0.5, el: <SPakLooks /> },
   { a: T(20) + 0.2, b: mid(20), el: <STonHide /> },
   { a: mid(20), b: mid(20) + 1.2, el: <SBackLamp /> },
   { a: mid(20) + 1.2, b: END + 0.45, el: <STonHide fastAt={END - (mid(20) + 1.2) - 0.9} /> },

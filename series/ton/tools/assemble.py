@@ -22,7 +22,8 @@ def trim(x, db=-42, pad=0.04):
 def rms_speech(x):
     n = int(0.03 * SR); r = np.array([np.sqrt((x[i:i + n] ** 2).mean()) for i in range(0, len(x) - n, n)]); return np.percentile(r, 80)
 spk = json.load(open("vo/speakers.json")) if Path("vo/speakers.json").exists() else {}
-out = [np.zeros(int(0.3 * SR), np.float32)]; t = 0.3; lines = []; target = None; owner = []
+LEAD = float(gaps.get("lead", 0.3))  # optional: silence before line 1 (for a wordless hook)
+out = [np.zeros(int(LEAD * SR), np.float32)]; t = LEAD; lines = []; target = None; owner = []
 for r in rows:
     c = [x.strip() for x in r.strip().strip("|").split("|")]; n = int(c[0])
     y = trim(load(clips / f"L{n:02d}.wav"))
