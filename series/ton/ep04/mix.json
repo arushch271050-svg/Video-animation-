@@ -1,0 +1,154 @@
+{
+ "video": "out/raw.mp4",
+ "voice": "vo/vo_aligned.wav",
+ "out": "out/ep03-v2.mp4",
+ "bgm": null,
+ "clicks_volume": 0.9,
+ "sfx": [
+  {
+   "file": "vo/sfx/school.wav",
+   "at": 0,
+   "volume": 0.14,
+   "loop_to": 28.1,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/sizzle.wav",
+   "at": 28.1,
+   "volume": 0.14,
+   "loop_to": 56.38,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 28.1,
+   "volume": 0.12,
+   "loop_to": 56.38,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 69.36,
+   "volume": 0.12,
+   "loop_to": 86.08,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 0.4,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/whoosh.wav",
+   "at": 0.3,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 7.29,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 12.96,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 19.66,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/flutter.wav",
+   "at": 20.11,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 23.0,
+   "volume": 0.5,
+   "loop_to": 28.1
+  },
+  {
+   "file": "vo/sfx/gang_laugh.wav",
+   "at": 26.4,
+   "volume": 0.45,
+   "lowpass": 900
+  },
+  {
+   "file": "vo/sfx/clock.wav",
+   "at": 57.97,
+   "volume": 0.35,
+   "loop_to": 69.36
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 56.38,
+   "volume": 0.55
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 51.55,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/pen.wav",
+   "at": 52.16,
+   "volume": 0.4
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 59.97,
+   "volume": 0.45,
+   "loop_to": 64.31
+  },
+  {
+   "file": "vo/sfx/shutter.wav",
+   "at": 71.73,
+   "volume": 0.75
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 71.73,
+   "volume": 0.3
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 75.37,
+   "volume": 0.45,
+   "loop_to": 76.73
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 83.88,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 86.08,
+   "volume": 0.9
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 86.38,
+   "volume": 0.6
+  }
+ ],
+ "mute": [
+  [
+   51.35,
+   53.97
+  ],
+  [
+   76.73,
+   93.62
+  ]
+ ],
+ "bed_duck": {
+  "threshold": 0.008,
+  "ratio": 20,
+  "attack": 15,
+  "release": 350
+ },
+ "note": "mix with ../tools/mix_ton.py (RULES.md)"
+}
