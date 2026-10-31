@@ -146,7 +146,7 @@ const STon: React.FC<{ act?: DayAct["ton"]; pin?: DayAct["pin"]; pd?: DayAct["pd
   const r = tight ? 1.05 : 1.3;
   return <Shot><DayScene ton={act} pin={pin} pd={pd} dad={dad} k={1} mt={useMouth("ton")} /><Cam p={[TON_F[0] + Math.sin(d) * r, HT + 0.03, TON_F[2] + Math.cos(d) * r - f * push]} t={[TON_F[0], HT - 0.05, TON_F[2]]} fov={tight ? 27 : 31} drift={0.3} /></Shot>;
 };
-const SPdSit: React.FC<{ act?: DayAct["pd"]; pin?: DayAct["pin"]; ton?: DayAct["ton"]; push?: number }> = ({ act = "sit", pin = "smirk", ton = "stare", push = 0.002 }) => { const f = useCurrentFrame(); const d = -Math.PI / 2 - 0.6; return <Shot><DayScene pd={act} pin={pin} ton={ton} dad="stand" mpd={useMouth("pakdad")} /><Cam p={[PD_SEAT[0] + Math.sin(d) * 0.95, HPDS + 0.08, PD_SEAT[2] + Math.cos(d) * 0.95 + f * push]} t={[PD_SEAT[0], HPDS - 0.05, PD_SEAT[2]]} fov={31} drift={0.3} /></Shot>; };
+const SPdSit: React.FC<{ act?: DayAct["pd"]; pin?: DayAct["pin"]; ton?: DayAct["ton"]; push?: number }> = ({ act = "sit", pin = "smirk", ton = "stare", push = 0.002 }) => { const f = useCurrentFrame(); const d = -Math.PI / 2 - (act === "place" ? 0.45 : 0.6); const r = act === "place" ? 1.25 : 0.95; return <Shot><DayScene pd={act} pin={pin} ton={ton} dad="stand" mpd={useMouth("pakdad")} /><Cam p={[PD_SEAT[0] + Math.sin(d) * r, HPDS + (act === "place" ? -0.12 : 0.08), PD_SEAT[2] + Math.cos(d) * r + f * push]} t={[PD_SEAT[0], HPDS - 0.05, PD_SEAT[2]]} fov={31} drift={0.3} /></Shot>; };
 const STableWide: React.FC<{ pd?: DayAct["pd"]; pin?: DayAct["pin"]; ton?: DayAct["ton"]; dad?: DayAct["dad"] }> = ({ pd = "sit", pin = "smirk", ton = "stare", dad = "stand" }) => { const f = useCurrentFrame(); return <Shot><DayScene pd={pd} pin={pin} ton={ton} dad={dad} k={1} /><Cam p={[0.6, 1.75, 4.6 - f * 0.006]} t={[0.65, 1.0, 1.9]} fov={44} drift={0.4} /></Shot>; };
 const SDoorTalk = () => { const f = useCurrentFrame(); const d = yawTo(PD_DOOR, TON_F) + 0.35; return <Shot><DayScene pd="door" pin="door" ton="book" dad="stand" mpd={useMouth("pakdad")} /><Cam p={[PD_DOOR[0] + Math.sin(d) * 1.45, HPD + 0.02, PD_DOOR[2] + Math.cos(d) * 1.45 - f * 0.002]} t={[PD_DOOR[0], HPD - 0.06, PD_DOOR[2]]} fov={31} drift={0.3} /></Shot>; };
 const SPakDoor = () => { const f = useCurrentFrame(); const P: V3 = [PD_DOOR[0] + 0.7, 0, 2.95]; const d = yawTo(P, TON_F) - 0.6; return <Shot><DayScene pd="door" pin="laugh" ton="book" mp={useMouth("pakin")} /><Cam p={[P[0] + Math.sin(d) * 1.35, HP + 0.02, P[2] + Math.cos(d) * 1.35 - f * 0.003]} t={[P[0], HP - 0.06, P[2]]} fov={31} drift={0.4} /></Shot>; };
@@ -268,12 +268,12 @@ export const CUTS: Cut[] = [
   { a: T(1) - 0.1, b: E(1) + 0.2, el: <SPakOpen /> },
   { a: E(1) + 0.2, b: E(1) + 1.0, el: <STrackTon /> },
   { a: E(1) + 1.0, b: mid(2), el: <STonHide /> },
-  { a: mid(2), b: E(2) + 0.4, el: <><SBackLamp /><Letterbox /></> },
+  { a: mid(2), b: E(2) + 0.3, el: <><SBackLamp /><Letterbox /></> },
   /* 2. the rich man comes to the stall */
-  { a: E(2) + 0.4, b: E(2) + 1.9, el: <SCarArrive /> },
-  { a: E(2) + 1.9, b: E(2) + 2.6, el: <SWatch /> },
-  { a: E(2) + 2.6, b: T(3) - 0.05, el: <SDadWalk /> },
-  { a: T(3) - 0.05, b: E(3) + 0.2, el: <SPdLook /> },
+  { a: E(2) + 0.3, b: E(2) + 1.65, el: <SCarArrive /> },
+  { a: E(2) + 1.65, b: E(2) + 2.05, el: <SWatch /> },
+  { a: E(2) + 2.05, b: T(3) + 0.7, el: <SDadWalk /> },
+  { a: T(3) + 0.7, b: E(3) + 0.2, el: <SPdLook /> },
   { a: E(3) + 0.2, b: E(4) + 0.2, el: <SDadTalk pd="look" /> },
   { a: E(4) + 0.2, b: E(5) + 0.2, el: <SPakSmirk pd="look" /> },
   { a: E(5) + 0.2, b: T(6) - 0.05, el: <STon act="stare" pd="sit" tight /> },
@@ -288,8 +288,8 @@ export const CUTS: Cut[] = [
   /* 4. the insult */
   { a: E(10) + 0.2, b: E(11) + 0.2, el: <SPakSmirk pin="near" pd="smile" /> },
   { a: E(11) + 0.2, b: E(12) + 0.15, el: <SPakSmirk pin="laugh" pd="smile" fast /> },
-  { a: E(12) + 0.15, b: E(12) + 1.0, el: <SDadTalk act="down" pin="laugh" /> },
-  { a: E(12) + 1.0, b: T(13) - 0.05, el: <STon act="look" pin="irked" dad="down" /> },
+  { a: E(12) + 0.15, b: E(12) + 0.65, el: <SDadTalk act="down" pin="laugh" /> },
+  { a: E(12) + 0.65, b: T(13) - 0.05, el: <STon act="look" pin="irked" dad="down" /> },
   { a: T(13) - 0.05, b: E(13) + 0.2, el: <STon act="talk" pin="irked" push={0.005} /> },
   { a: E(13) + 0.2, b: E(13) + 1.3, el: <STableWide pin="irked" ton="talk" /> },
   { a: E(13) + 1.3, b: E(14) + 0.3, el: <STon act="talk" pin="irked" tight /> },
