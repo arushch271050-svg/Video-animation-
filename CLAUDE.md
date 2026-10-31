@@ -89,3 +89,9 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
 - ฉากใหม่: `sets/market.tsx` (ตลาดเช้า), School `night` + BACK_LAMP, stall มีตึกฝั่งตรงข้าม + ซอย ALLEY + ไฟถนน
 - `tools/assemble.py` รองรับ `"lead"` ใน gaps.json (เว้นเงียบก่อนบรรทัด 1 สำหรับฮุกไม่มีเสียงพูด)
 - F5 ในเซสชันนี้เร็วขึ้น (~1–3 นาที/บรรทัด) · ไม่เฉลยของในซอง/แรงจูงใจภาคิน
+
+## EP5 ซีรีส์ต้น — สถานะ 2026-10-31
+- โปรเจกต์ `series/ton/ep05/` · 24 บรรทัด · out/ep05-v1.mp4 109 วิ −14.6 LUFS · cover `--frame=2460` (Cover ไม่อ่าน coverFrame เอง ต้องใส่ --frame)
+- ตัวใหม่ PAKDAD (พ่อภาคิน เสื้อเชิ้ตกรม นาฬิกาทอง) เสียง Porameht dev row 188 → ~85Hz หลัง emote (พ่อต้น ~92Hz) · รถ `sets/car.tsx` · stall `day`
+- ข้อเสนอ ฿350,000 (Claude ตั้งเอง) · เสียงดิบ scratchpad `ep5vo/` · L07 seed 8
+- container รีสตาร์ตกลางทาง ฆ่างาน F5 → ต้องเช็ก uptime แล้วสั่งต่อบรรทัดที่ขาด · อย่าใช้ `pgrep -f "remotion render"` ใน wait loop (จับตัวเอง)
