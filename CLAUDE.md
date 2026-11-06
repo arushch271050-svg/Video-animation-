@@ -95,3 +95,10 @@ cd ../series/story-demo/ep01 && npm install --no-audit --no-fund
 - ตัวใหม่ PAKDAD (พ่อภาคิน เสื้อเชิ้ตกรม นาฬิกาทอง) เสียง Porameht dev row 188 → ~85Hz หลัง emote (พ่อต้น ~92Hz) · รถ `sets/car.tsx` · stall `day`
 - ข้อเสนอ ฿350,000 (Claude ตั้งเอง) · เสียงดิบ scratchpad `ep5vo/` · L07 seed 8
 - container รีสตาร์ตกลางทาง ฆ่างาน F5 → ต้องเช็ก uptime แล้วสั่งต่อบรรทัดที่ขาด · อย่าใช้ `pgrep -f "remotion render"` ใน wait loop (จับตัวเอง)
+
+## EP6 ซีรีส์ต้น — สถานะ 2026-11-06
+- โปรเจกต์ `series/ton/ep06/` · 21 บรรทัด · out/ep06-v1.mp4 91.6 วิ −14.3 LUFS · cover `--frame=2337`
+- ผู้ใช้เลือก: เอกสารผู้ว่าจ้างโชว์แค่นามสกุล **ธนกิจไพศาล** (ชื่อต้นโดนนิ้วชายปริศนาบัง) · พ่อต้นขี่มอเตอร์ไซค์มาจอดรอ
+- ฉากใหม่ `sets/warehouse.tsx` (Warehouse, Motorbike, CarInterior) · `Photos.tsx` เรนเดอร์รูปร้านไป public/photo_*.png · holdR "folder"/"photo"
+- ชายปริศนาห้ามเห็นหน้า: ใช้แค่มุมข้างหลัง/OTS (ช็อตอกลงล่างใช้ไม่ได้ในจอตั้ง = เสื้อเต็มจอ)
+- F5 อ่าน "เล็กๆ" ไม่ซ้ำ → เขียน "เล็กเล็ก" · "ภาคิน" Whisper ฟังเป็น "พาคิน" (ออกเสียงถูก)
