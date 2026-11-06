@@ -328,10 +328,10 @@ export const CUTS: Cut[] = [
   { a: mid(17), b: E(17) + 0.2, el: <><SPdCar /><Letterbox /></> },
   { a: E(17) + 0.2, b: E(18) + 0.2, el: <SPkCar pin="turn" /> },
   { a: E(18) + 0.2, b: E(19) + 0.2, el: <><SPdCar pin="turn" /><Letterbox /></> },
-  { a: E(19) + 0.2, b: E(19) + 1.7, el: <TonMsg /> },
-  { a: E(19) + 1.7, b: E(19) + 2.5, el: <SPkCar pin="phone" /> },
+  { a: E(19) + 0.2, b: E(19) + 1.45, el: <TonMsg /> },
+  { a: E(19) + 1.45, b: E(19) + 1.95, el: <SPkCar pin="phone" /> },
   /* 6. the school, next morning */
-  { a: E(19) + 2.5, b: T(20) - 0.3, el: <><SSchoolWide /><PlaceTag text="เช้าวันต่อมา" /></> },
+  { a: E(19) + 1.95, b: T(20) - 0.3, el: <><SSchoolWide /><PlaceTag text="เช้าวันต่อมา" /></> },
   { a: T(20) - 0.3, b: E(20) + 0.2, el: <SArrive /> },
   { a: E(20) + 0.2, b: E(21) + 0.2, el: <STonS ton="talk" pin="talk" /> },
   { a: E(21) + 0.2, b: E(22) + 0.2, el: <SOtsPak ton="talk" pin="talk" /> },
