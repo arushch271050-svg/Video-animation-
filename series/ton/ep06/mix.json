@@ -1,0 +1,143 @@
+{
+ "video": "out/raw.mp4",
+ "voice": "vo/vo_aligned.wav",
+ "out": "out/ep06-v1.mp4",
+ "bgm": null,
+ "clicks_volume": 0.9,
+ "sfx": [
+  {
+   "file": "vo/sfx/street.wav",
+   "at": 0,
+   "volume": 0.1,
+   "loop_to": 22.38,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/wind.wav",
+   "at": 22.38,
+   "volume": 0.14,
+   "loop_to": 82.56,
+   "bed": true
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 0.1,
+   "volume": 0.4,
+   "loop_to": 2.4
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 0.12,
+   "volume": 0.3
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 0.45,
+   "volume": 0.25
+  },
+  {
+   "file": "vo/sfx/whoosh.wav",
+   "at": 2.35,
+   "volume": 0.4
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 20.38,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 22.38,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/creak.wav",
+   "at": 23.38,
+   "volume": 0.4
+  },
+  {
+   "file": "vo/sfx/creak.wav",
+   "at": 35.15,
+   "volume": 0.3
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 39.79,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 40.39,
+   "volume": 0.35
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 54.62,
+   "volume": 0.35,
+   "loop_to": 60.88
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 72.0,
+   "volume": 0.45
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 74.2,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/page.wav",
+   "at": 75.8,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/heartbeat.wav",
+   "at": 76.9,
+   "volume": 0.5,
+   "loop_to": 82.56
+  },
+  {
+   "file": "vo/sfx/riser.wav",
+   "at": 79.96,
+   "volume": 0.5
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 81.36,
+   "volume": 0.55
+  },
+  {
+   "file": "vo/sfx/thud.wav",
+   "at": 84.48,
+   "volume": 0.9
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 84.78,
+   "volume": 0.6
+  },
+  {
+   "file": "vo/sfx/impact.wav",
+   "at": 88.08,
+   "volume": 0.5
+  }
+ ],
+ "mute": [
+  [
+   74.2,
+   75.8
+  ],
+  [
+   82.56,
+   92.48
+  ]
+ ],
+ "bed_duck": {
+  "threshold": 0.008,
+  "ratio": 20,
+  "attack": 15,
+  "release": 350
+ },
+ "note": "mix with ../tools/mix_ton.py (RULES.md)"
+}
